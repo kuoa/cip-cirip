@@ -1,5 +1,6 @@
 package services.tools;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,30 +8,29 @@ import org.json.JSONObject;
 
 public class ServicesUser {
 	
-	/* Letters, digits and _, 3 <= size <= 10 */	
-	public static final Pattern VALID_USER_REGEX = 
-			Pattern.compile("^[a-z0-9_]{3-10}$");
+	/** Letters, digits and _, 3 <= size <= 10 */	
 	
-	/* 	At least: 1 digit, 1 letter, 1 symbol, size >= 6 */
+	public static final Pattern VALID_USER_REGEX = 
+			Pattern.compile("^[a-z0-9_]{3,10}$");
+	
+	/** At least: 1 digit, 1 letter, 1 symbol, size >= 6 */
+	
 	public static final Pattern VALID_PASS_REGEX = 
 			Pattern.compile("^(?=.*\\d)(?=.*[a-zA-Z])(?!\\w*$).{6,}");			
 	
-	/* Classic email pattern */
+	/** Classic email pattern */
+	
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 	
+	/* check-up boolean functions */
 	
 	private static boolean userExists(String user){
 		// TODO
 		return false;
 	}	
-	
-	private static String insertSession(int id, boolean root){
-		// TODO
-		return "OK";		
-	}
-	
+
 	private static boolean validArg (String arg){
 		
 		return (arg != null && !arg.isEmpty());
@@ -55,34 +55,57 @@ public class ServicesUser {
 		        
 	}			
 	
+	private static boolean validKey(){
+		// TODO
+		return true;
+	}
+	
+	/* utility functions */
+	
+	private static String insertSession(int id, boolean root){
+		// TODO
+		return "OK";		
+	}
+	
+	private static int generateKey(){
+		// TODO
+		return 123456;
+	}
+	
+	private static int generateId(){
+		// TODO
+		return 4321;
+	}
+	
+	/* main functions */	
+	
 	public static JSONObject create(String user, String pass, String mail){		
 
 		// TODO FINISH!
 		
 		final int EXISTING_LOGIN =  1;
-		
+				
 		/* username check */
 		
 		if (!(validArg(user) && validUser(user))){
-			return Services.serviceRefused(user +" is not a valid username.", Services.MISSING_ARG);
+			return Services.serviceRefused("Invalid username.", Services.MISSING_ARG);
 		}
 		
 		if (userExists(user)){
-			return Services.serviceRefused("A user already exists with the login: " + user + ".", EXISTING_LOGIN);
+			return Services.serviceRefused("Existing username." + user + ".", EXISTING_LOGIN);
 		}		
 		
 		/* password check */
 		
 		if (!(validArg(pass) && validPassword(pass))){
-			return Services.serviceRefused("Please provide a valid password.", Services.MISSING_ARG);
+			return Services.serviceRefused("Invalid password.", Services.MISSING_ARG);
 		}
 		
 		/* mail check */
 		
 		if (!(validArg(mail) && (validMail(mail)))){
-			return Services.serviceRefused(mail + " is not a valid mail adress.", Services.MISSING_ARG);
-		}
-		
+			return Services.serviceRefused("Invalid mail adress.", Services.MISSING_ARG);
+		}		
 		
 		/* insert in data-base */
 		
@@ -90,32 +113,63 @@ public class ServicesUser {
 		String dbRes = insertSession(1, false);
 		
 		if (!dbRes.equals("OK")){
-			return Services.serviceRefused("Database error. Please try again", Services.SQL_ERROR);
+			return Services.serviceRefused("Database error", Services.SQL_ERROR);
 		}
 			
 		return Services.serviceAccepted();			
 	}
-	
-	
+		
 	public static JSONObject login (String user, String pass){		
 
 		// TODO
 		
-		final int MISSING_ARG =  1;
-		final int INCORECT_ARG = 2;
+		final int INCORECT_LOGIN = 1;
+		final int INCORECT_PASSWORD = 2;
 		
-
-		return null;
+		/* username check */
+		
+		if (!(validArg(user) && validUser(user))){
+			return Services.serviceRefused("Invalid username.", Services.MISSING_ARG);
+		}
+		
+		if (!userExists(user)){
+			return Services.serviceRefused("Incorect login informations.", INCORECT_LOGIN);
+		}		
+		
+		/* password check */
+		
+		if (!(validArg(pass) && validPassword(pass))){
+			return Services.serviceRefused("Incorect login informations", INCORECT_PASSWORD);
+		}
+		
+		int id = generateId();
+		int key = generateKey();
+		
+		/* data-base part */
+		
+		/* TO DO */
+		
+		
+		/* Response */
+		HashMap<String, String> args = new HashMap<>();
+		
+		args.put("id", Integer.toString(id));
+		args.put("key", Integer.toString(key));
+		args.put("username", user);
+		
+		return Services.serviceAccepted(args);
+		
 	}
 	
-	public static JSONObject logout (String user, String pass){
-
-		// TODO
+	public static JSONObject logout (int key){
 		
-		final int MISSING_ARG =  1;
-		final int INCORECT_ARG = 2;	
+		final int INCORECT_KEY = 1;
 		
-		return null;
+		if (!validKey()){
+			return Services.serviceRefused("Incorect user key.", INCORECT_KEY);
+		}
+		
+		return Services.serviceAccepted();
 	}
 	
 	

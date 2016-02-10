@@ -1,5 +1,7 @@
 package services.tools;
 
+import java.util.HashMap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,9 +9,12 @@ public class Services {
 
 	
 	public final static int MISSING_ARG =  -1;	
-	public static int JSON_ERROR = 100;
+	public final static int JSON_ERROR = 100;
 	public final static int SQL_ERROR = 1000;
 	public final static int JAVA_ERROR = 10000;	
+	
+	
+	/** @return a JSONObject containing a short @param message and a @param errorCode */
 	
 	public static JSONObject serviceRefused(String message, int errorCode){
 		
@@ -27,6 +32,8 @@ public class Services {
 		return jo;
 	}
 	
+	/** @return a JSONObject containing "status" "succes" */
+	
 	public static JSONObject serviceAccepted(){
 		
 	JSONObject jo = new JSONObject();
@@ -41,18 +48,19 @@ public class Services {
 		return jo;
 	}	
 	
-	public static JSONObject serviceAccepted(String msg){
+	/** @return a JSONObject containing "status" "succes" and aditional information exctracted from @param map */
+	
+	public static JSONObject serviceAccepted(HashMap<String, String> map){
 		
-		JSONObject jo = new JSONObject();
+		JSONObject jo = new JSONObject(map);
+		
+		try {
+			jo.put("status", "succes");		
 			
-			try {
-				jo.put("status", "succes");
-				jo.put("message", msg);
-				
-			} catch (JSONException e) {		
-				e.printStackTrace();
-			}
-					
-			return jo;
+		} catch (JSONException e) {		
+			e.printStackTrace();
 		}
+				
+		return jo;			
+	}
 }
