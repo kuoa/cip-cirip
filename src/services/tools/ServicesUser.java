@@ -1,10 +1,16 @@
 package services.tools;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONObject;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+
+import database.DB;
 
 public class ServicesUser {
 	
@@ -26,9 +32,28 @@ public class ServicesUser {
 	
 	/* check-up boolean functions */
 	
-	private static boolean userExists(String user){
-		// TODO
-		return false;
+	public static boolean userExists(String user){
+
+		String sql = "SELECT id FROM users where login = \"" + user + "\";";
+		boolean found = false;
+		
+		try {
+			  Connection connection = DB.getMySQLConnection();
+			  Statement st = (Statement) connection.createStatement();
+			  ResultSet rs = st.executeQuery(sql);
+			  
+			  if (rs.next()){
+				  found = true;
+			  }			  
+			  st.close();
+			  connection.close();			  			  
+			  
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return found;
 	}	
 
 	private static boolean validArg (String arg){
@@ -63,7 +88,7 @@ public class ServicesUser {
 	/* utility functions */
 	
 	private static String insertSession(int id, boolean root){
-		// TODO
+		// TODO generates key and inserts on id 
 		return "OK";		
 	}
 	
@@ -73,7 +98,7 @@ public class ServicesUser {
 	}
 	
 	private static int generateId(){
-		// TODO
+		// ID AUTOMATED
 		return 4321;
 	}
 	
@@ -109,7 +134,7 @@ public class ServicesUser {
 		
 		/* insert in data-base */
 		
-		// TODO modify id!!!!
+		// TODO modify id!!!! ON LOGIN
 		String dbRes = insertSession(1, false);
 		
 		if (!dbRes.equals("OK")){
