@@ -19,8 +19,7 @@ public class LoginTest {
 		String userRef []= {"cool_username", "c@0l_u", "s"};
 		String userAcc [] = {"coco", "happy_go", "giraffe"};
 		
-		String password = "rand0mP@ass";
-		String mail = "cool@cooler.com";				
+		String password = "rand0mP@ass";		
 		
 		for (String user: userRef){
 

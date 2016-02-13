@@ -1,11 +1,14 @@
 package services.test.user;
 
-import services.tools.ServicesUser;
+import auth.AuthUtils;
+import database.DB;
 
 public class Test {
 	
 	public static void main (String [] args){
-		
-		System.out.println(ServicesUser.userExists("Testing"));
+
+		DB.printMySQLTable("users");		
+		//AuthUtils.addUserToDataBase("GOD", "ZEUS", "THUNDER@THUNDERCORP.COM");
+		//DB.printMySQLTable("users");
 	}
 }
