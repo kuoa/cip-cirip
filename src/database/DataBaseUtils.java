@@ -7,7 +7,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
 
-public class DB {
+public class DataBaseUtils {
 
 	/** Database Auth infos */
 	
@@ -53,7 +53,7 @@ public class DB {
 		String sql = "SELECT * FROM " + tableName;		
 		
 		try {
-			  Connection connection = DB.getMySQLConnection();
+			  Connection connection = DataBaseUtils.getMySQLConnection();
 			  Statement st = (Statement) connection.createStatement();
 			  ResultSet rs = st.executeQuery(sql);
 			  ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();

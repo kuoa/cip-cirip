@@ -104,7 +104,7 @@ public class ServicesUser {
 				return Services.serviceRefused("Incorect password", INCORECT_PASSWORD);
 			}
 
-			id = AuthUtils.getUserId(login);
+			id = AuthUtils.getUserIdFromLogin(login);
 			key = AuthUtils.insertSession(id, root);
 
 		} catch (SQLException e) {
@@ -146,6 +146,14 @@ public class ServicesUser {
 		return Services.serviceAccepted();
 	}
 	
+	/**
+	 * Delets the user from the data-base
+	 * @param login
+	 * @param pass
+	 * @param mail
+	 * @return A serviceAcepted / serviceRefused JSONObject.
+	 */
+	
 	public static JSONObject delete(String login, String pass, String mail){
 		
 		final int INCORECT_LOGIN = 1;
@@ -178,7 +186,7 @@ public class ServicesUser {
 				return Services.serviceRefused("Incorect password", INCORECT_PASSWORD);
 			}
 
-			id = AuthUtils.getUserId(login);
+			id = AuthUtils.getUserIdFromLogin(login);
 			key = AuthUtils.getUserKey(id);
 
 			/* TODO remove all/from friends */
