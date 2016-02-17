@@ -1,10 +1,11 @@
-/* mysql -h 132.227.201.129 -P 33306 -u "gr3_postaru" -p < createDataBase.sql */
+/* mysql -h 132.227.201.129 -P 33306 -u "gr3_postaru" -pWdSPtM < createDataBase.sql */
 
 USE gr3_postaru
 
 DROP TABLE IF EXISTS users ;
 DROP TABLE IF EXISTS `session`;
-DROP TABLE IF EXISTS friends ;
+DROP TABLE IF EXISTS friends ; 
+
 
 CREATE TABLE users 
       (id INTEGER PRIMARY KEY auto_increment,
@@ -22,6 +23,7 @@ CREATE TABLE `session`
        root BOOLEAN,
        INDEX(`key`, `user_id`, `expires`)
        );
+
 
 CREATE TABLE friends
        (`from` INTEGER,

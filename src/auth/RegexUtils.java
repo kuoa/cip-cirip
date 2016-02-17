@@ -7,7 +7,7 @@ public class RegexUtils {
 
 	/** Letters, digits and _, 3 <= size <= 10 */
 
-	public static final Pattern VALID_USER_REGEX = Pattern.compile("^[a-z0-9_]{3,10}$");
+	public static final Pattern VALID_USER_REGEX = Pattern.compile("^[a-zA-Z0-9_]{3,10}$");
 
 	/** At least: 1 digit, 1 letter, 1 symbol, size >= 6 */
 

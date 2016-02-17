@@ -19,10 +19,10 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {		
 						
-		int id = Integer.parseInt(req.getParameter("id"));
+		String key = req.getParameter("key");
 				
 		PrintWriter out = res.getWriter();
-		JSONObject jo = ServicesUser.logout(id);
+		JSONObject jo = ServicesUser.logout(key);
 		
 		out.println(jo.toString());
 		

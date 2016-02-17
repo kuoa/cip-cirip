@@ -9,6 +9,8 @@ import com.mysql.jdbc.Statement;
 
 public class DB {
 
+	/** Database Auth infos */
+	
 	private static final String host = "132.227.201.129:33306";
 	private static final String db = "gr3_postaru";
 	private static final String username = "gr3_postaru";
@@ -16,7 +18,16 @@ public class DB {
 
 	private static boolean pooling = false;
 	private static DataBase database = null;
-
+	
+	
+	/**
+	 * Grants acces to the database.
+	 * @return a Connection the the database.
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
 	public static Connection getMySQLConnection()
 			throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 
@@ -33,6 +44,10 @@ public class DB {
 		}
 	}
 
+	/**
+ 	 * Prints the database table of @param tableName
+	 */
+
 	public static void printMySQLTable(String tableName){
 		
 		String sql = "SELECT * FROM " + tableName;		
@@ -48,7 +63,7 @@ public class DB {
 			  /* print column name */
 			  
 			  for (int i = 1; i <= columnsNumber; i++){
-				  System.out.print(String.format("%-30s", rsmd.getColumnName(i)));
+				  System.out.print(String.format("%-40s", rsmd.getColumnName(i)));
 			  }
 			  			  
 			  /* print database info */
@@ -56,10 +71,12 @@ public class DB {
 			  while (rs.next()){	
 				  System.out.println();
 				  for (int i = 1; i <= columnsNumber; i++){
-					  System.out.print(String.format("%-30s",rs.getString(i)));
+					  System.out.print(String.format("%-40s",rs.getString(i)));
 				  
 				  }					 
-			  }			  			  			  
+			  }	
+			  
+			  System.out.println();
 			  st.close();
 			  connection.close();			  			  			  
 			
