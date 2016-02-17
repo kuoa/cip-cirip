@@ -79,8 +79,7 @@ public class AuthUtils {
 
 		System.out.println("User Added To Database");
 		return isAdded;
-	}
-	
+	}	
 	
 	/**
 	 * Deletes the user from the data-base
@@ -91,13 +90,20 @@ public class AuthUtils {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public static void removeUserFromDataBase(String login, String pass) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+	public static void removeUserFromDataBase(int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
-		/*
-		 * check login and pass
-		 * logout user
-		 * remove from database
-		 */
+		String sql = "DELETE FROM users WHERE `id`=" + id;
+
+		Connection connection = DB.getMySQLConnection();
+		Statement st = (Statement) connection.createStatement();
+		
+		st.executeUpdate(sql);
+		
+		System.out.println("User removed for id : " + id);
+		
+		st.close();
+		connection.close();	
+		
 				
 	}
 	/* utility functions */
@@ -141,7 +147,7 @@ public class AuthUtils {
 	}
 
 	/**
-	 * Returns the id associated with the login.
+	 * Returns the id associated with the login from the users table.
 	 * 
 	 * @param login
 	 * @return id | -1 (for debbuging purposes)
@@ -151,7 +157,7 @@ public class AuthUtils {
 	 * @throws SQLException
 	 */
 
-	public static int getIdUser(String login)
+	public static int getUserId(String login)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
 		int id = -1;
@@ -169,11 +175,36 @@ public class AuthUtils {
 		connection.close();
 
 		return id;
-	}	
+	}						
 
-	public static boolean validKey() {
-		// TODO
-		return true;
+	/**
+	 * Returns the session-key associated with the user.
+	 * @param id
+	 * @return session-key
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	
+	public static String getUserKey(int id)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		
+		String sql = "SELECT `key` FROM session WHERE user_id=" + id;
+		String key = "";
+
+		Connection connection = DB.getMySQLConnection();
+		Statement st = (Statement) connection.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+
+		if (rs.next()) {
+			key = rs.getString("key");
+		}
+
+		st.close();
+		connection.close();
+
+		return key;
 	}
 
 	/**

@@ -104,7 +104,7 @@ public class ServicesUser {
 				return Services.serviceRefused("Incorect password", INCORECT_PASSWORD);
 			}
 
-			id = AuthUtils.getIdUser(login);
+			id = AuthUtils.getUserId(login);
 			key = AuthUtils.insertSession(id, root);
 
 		} catch (SQLException e) {
@@ -145,4 +145,63 @@ public class ServicesUser {
 		}
 		return Services.serviceAccepted();
 	}
+	
+	public static JSONObject delete(String login, String pass, String mail){
+		
+		final int INCORECT_LOGIN = 1;
+		final int INCORECT_PASSWORD = 2;		
+
+		final String key;
+		final int id;
+
+		/* username check */
+
+		if (!(RegexUtils.validArg(login) && RegexUtils.validUser(login))) {
+			return Services.serviceRefused("Invalid username.", Services.MISSING_ARG);
+		}
+
+		/* password check */
+
+		if (!(RegexUtils.validArg(pass) && RegexUtils.validPassword(pass))) {
+			return Services.serviceRefused("Incorect password", INCORECT_PASSWORD);
+		}
+
+		try {
+
+			/* database part */
+
+			if (!AuthUtils.userExists(login)) {
+				return Services.serviceRefused("Incorect login informations.", INCORECT_LOGIN);
+			}
+
+			if (!AuthUtils.checkPassword(login, pass)) {
+				return Services.serviceRefused("Incorect password", INCORECT_PASSWORD);
+			}
+
+			id = AuthUtils.getUserId(login);
+			key = AuthUtils.getUserKey(id);
+
+			/* TODO remove all/from friends */
+			
+			
+			/* remove-session */
+									
+			AuthUtils.removeSession(key);
+			
+			/* delete user */
+			
+			AuthUtils.removeUserFromDataBase(id);
+			
+
+		} catch (SQLException e) {
+			return Services.serviceRefused("SQL Error. " + e.getMessage(), Services.SQL_ERROR);
+
+		} catch (Exception e) {
+			return Services.serviceRefused("JAVA Error. " + e.getMessage(), Services.JAVA_ERROR);
+		}		
+
+		return Services.serviceAccepted();
+		
+	}
 }
+
