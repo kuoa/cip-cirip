@@ -6,16 +6,22 @@ import org.json.JSONObject;
 
 import auth.AuthUtils;
 import database.DataBaseUtils;
+import friends.FriendsUtils;
 import services.servlets.user.Logout;
 import services.tools.ServicesUser;
 
 public class Test {
 	
 	public static void main (String [] args){
-
-		DataBaseUtils.printMySQLTable("users");	
+		
+		System.out.println("HEY");
+			
+		//DataBaseUtils.printMySQLTable("users");
+		
 		System.out.println();
-		DataBaseUtils.printMySQLTable("session");
+		//DataBaseUtils.printMySQLTable("session");
+		
+		DataBaseUtils.printMySQLTable("friends");
 		
 		//JSONObject jo = ServicesUser.create("Zeus", "I@MG0D", "zeus@thunder.com");
 		
@@ -29,10 +35,19 @@ public class Test {
 		
 		//System.out.println(jo);	
 		
+		try {
+			//FriendsUtils.addFriendToDatabase("7dda5cfda8234677a0c937166a28a09b", "Zeus");
+			
+			FriendsUtils.removeFriendFromDatabase("7dda5cfda8234677a0c937166a28a09b", "Zeus");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println();
-		DataBaseUtils.printMySQLTable("users");
+		//DataBaseUtils.printMySQLTable("users");
 		System.out.println();
-		DataBaseUtils.printMySQLTable("session");
-									
+		//DataBaseUtils.printMySQLTable("session");
+		System.out.println();
+		DataBaseUtils.printMySQLTable("friends");
 	}
 }
