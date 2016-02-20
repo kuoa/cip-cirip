@@ -16,7 +16,7 @@ public class Test {
 		
 		System.out.println("HEY");
 			
-		//DataBaseUtils.printMySQLTable("users");
+		DataBaseUtils.printMySQLTable("users");
 		
 		System.out.println();
 		//DataBaseUtils.printMySQLTable("session");
@@ -38,7 +38,7 @@ public class Test {
 		try {
 			//FriendsUtils.addFriendToDatabase("7dda5cfda8234677a0c937166a28a09b", "Zeus");
 			
-			FriendsUtils.removeFriendFromDatabase("7dda5cfda8234677a0c937166a28a09b", "Zeus");
+			//FriendsUtils.removeFriendFromDatabase("7dda5cfda8234677a0c937166a28a09b", "Zeus");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

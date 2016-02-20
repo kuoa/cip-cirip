@@ -1,5 +1,7 @@
 package services.test.comments;
 
+import java.util.logging.Level;
+
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
@@ -9,7 +11,10 @@ import com.mongodb.client.MongoDatabase;
 public class Test {
 	
 	public static void main (String [] args){
-					   		
+
+		/* Hide console output */
+		java.util.logging.Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE); 
+		
 		
 		MongoClient mongo = new MongoClient("132.227.201.129", 27130);		
 		MongoDatabase db = mongo.getDatabase("gr3_postaru");		
@@ -18,7 +23,7 @@ public class Test {
 		
 		Document doc = new Document();
 		
-		doc.put("msg", "It Works!");
+		//doc.put("msg", "It Works!");
 		
 		collection.insertOne(doc);				
 		

@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 import database.DataBaseUtils;
 
@@ -18,11 +17,10 @@ public class AuthUtils {
 	private static final int SESSION_HOUR_DURATION = 2;
 	
 	/**
-	 * Adds a new username to the data-base
-	 * 
-	 * @param login
-	 * @param password
-	 * @param email
+	 * Adds a new username to the data-base.
+	 * @param login username
+	 * @param password password
+	 * @param email email
 	 * @return true / false
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -33,18 +31,21 @@ public class AuthUtils {
 	public static boolean addUserToDataBase(String login, String password, String email)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
-		String sql = "INSERT INTO users " + "(login, password, email)" + "VALUES ('" + login + "', '" + password
-				+ "', '" + email + "')";
+		String sql = "INSERT INTO users " + "(login, password, email)" + " VALUES (?, ?, ?)";
 
 		Boolean isAdded = false;
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 
-		st.executeUpdate(sql);
+		ps.setString(1, login);
+		ps.setString(2, password);
+		ps.setString(3, email);
+		ps.executeUpdate();
+		
 		isAdded = true;
 
-		st.close();
+		ps.close();
 		connection.close();
 
 		System.out.println("User Added To Database");
@@ -52,8 +53,8 @@ public class AuthUtils {
 	}	
 	
 	/**
-	 * Deletes the user from the data-base
-	 * @param id
+	 * Deletes the user from the data-base.
+	 * @param id user id
 	 * @return true | false
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -62,23 +63,23 @@ public class AuthUtils {
 	 */
 	public static void removeUserFromDataBase(int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
-		String sql = "DELETE FROM users WHERE `id`=" + id;
+		String sql = "DELETE FROM users WHERE `id`=?";
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 		
-		st.executeUpdate(sql);
-		
+		ps.setInt(1, id);
+		ps.executeUpdate();
+
 		System.out.println("User removed for id : " + id);
 		
-		st.close();
-		connection.close();	
-						
+		ps.close();
+		connection.close();							
 	}
 
 	/**
 	 * Inserts a new entry in the `session` table.
-	 * @param id
+	 * @param id I
 	 * @param root
 	 * @return A unique key associated with the user
 	 * @throws InstantiationException
@@ -95,8 +96,7 @@ public class AuthUtils {
 
 		String key = generateKey();
 
-		String sql = "INSERT INTO `session` " + "(`key`, `user_id`, `expires`, `root`)" 
-		+ " VALUE(?,?,?,?)";		
+		String sql = "INSERT INTO `session` " + "(`key`, `user_id`, `expires`, `root`)" + " VALUE(?,?,?,?)";		
 				
 		Connection connection = DataBaseUtils.getMySQLConnection();
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
@@ -118,7 +118,7 @@ public class AuthUtils {
 	
 	/**
 	 * Removes the entry associated with id, from the `sessions` table.
-	 * @param id
+	 * @param id user id
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -127,44 +127,48 @@ public class AuthUtils {
 
 	public static void removeSession(String key) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		
-		String sql = "DELETE FROM session WHERE `key`='" + key +"'";
+		String sql = "DELETE FROM session WHERE `key`=?";
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
 		
-		st.executeUpdate(sql);
+		ps.setString(1, key);
+		ps.executeUpdate();
 		
 		System.out.println("Session removed for key : " + key);
 		
-		st.close();
+		ps.close();
 		connection.close();	
 	}
 	
 	/**
 	 * Checks if the user already exists in the database.
 	 * 
-	 * @param user
+	 * @param user username
 	 * @return true / false
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
 	 */
-	public static boolean userExists(String user)
+	public static boolean userExists(String login)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
-		String sql = "SELECT id FROM users WHERE login = \"" + user + "\";";
+		String sql = "SELECT id FROM users WHERE login = ?";
 		boolean found = false;
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+		
+		ps.setString(1, login);
+		
+		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
 			found = true;
 		}
 
-		st.close();
+		ps.close();
 		connection.close();
 
 		return found;
@@ -185,13 +189,16 @@ public class AuthUtils {
 	public static boolean checkPassword(String login, String password)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
-		String sql = "SELECT password FROM users WHERE login='" + login + "'";
+		String sql = "SELECT password FROM users WHERE login = ? ";
 		String serverPassword = "";
 		Boolean isValid = false;
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+		
+		ps.setString(1, login);		
+		
+		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
 
@@ -202,7 +209,7 @@ public class AuthUtils {
 			}
 		}
 
-		st.close();
+		ps.close();
 		connection.close();
 
 		return isValid;
@@ -221,7 +228,7 @@ public class AuthUtils {
 	/**
 	 * Returns the id associated with the login from the users table.
 	 * 
-	 * @param login
+	 * @param login, username
 	 * @return id | -1 (for debbuging purposes)
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
@@ -233,17 +240,19 @@ public class AuthUtils {
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 
 		int id = -1;
-		String sql = "SELECT id FROM users WHERE login='" + login + "'";
+		String sql = "SELECT id FROM users WHERE login = ?";
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+		
+		ps.setString(1, login);		
+		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
 			id = rs.getInt("id");
 		}
 
-		st.close();
+		ps.close();
 		connection.close();
 
 		return id;
@@ -253,17 +262,19 @@ public class AuthUtils {
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 		int id = -1;
-		String sql = "SELECT `user_id` FROM `session` WHERE `key`='" + key + "'";
+		String sql = "SELECT `user_id` FROM `session` WHERE `key` = ?";
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+	
+		ps.setString(1, key);
+		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
 			id = rs.getInt("user_id");
 		}
 
-		st.close();
+		ps.close();
 		connection.close();
 
 		return id;
@@ -283,18 +294,20 @@ public class AuthUtils {
 	public static String getUserKey(int id)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		
-		String sql = "SELECT `key` FROM session WHERE user_id=" + id;
+		String sql = "SELECT `key` FROM session WHERE user_id = ?";
 		String key = "";
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
-		Statement st = (Statement) connection.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+		
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
 			key = rs.getString("key");
 		}
 
-		st.close();
+		ps.close();
 		connection.close();
 
 		return key;

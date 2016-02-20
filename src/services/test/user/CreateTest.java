@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import auth.AuthUtils;
 import services.tools.ServicesUser;
 
 public class CreateTest {
