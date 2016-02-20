@@ -258,6 +258,16 @@ public class AuthUtils {
 		return id;
 	}	
 	
+	/**
+	 * Returns a user id corresponding to the session key.
+	 * @param key session key
+	 * @return userId | -1
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	
 	public static int getUserIdFromKey(String key)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
@@ -295,7 +305,7 @@ public class AuthUtils {
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		
 		String sql = "SELECT `key` FROM session WHERE user_id = ?";
-		String key = "";
+		String key = null;
 
 		Connection connection = DataBaseUtils.getMySQLConnection();
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);

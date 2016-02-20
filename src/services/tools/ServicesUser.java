@@ -17,6 +17,7 @@ public class ServicesUser {
 	 * @param mail
 	 * @return A serviceAcepted / serviceRefused JSONObject.
 	 */
+	
 	public static JSONObject create(String login, String pass, String mail) {
 
 		final int EXISTING_LOGIN = 1;

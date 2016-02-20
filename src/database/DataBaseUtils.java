@@ -16,12 +16,15 @@ public class DataBaseUtils {
 	private static final String username = "gr3_postaru";
 	private static final String password = "WdSPtM";
 
+	/** if using pooling */
 	private static boolean pooling = false;
+	
+	/** current DataBase */
 	private static DataBase database = null;
 	
 	
 	/**
-	 * Grants acces to the database.
+	 * Grants access to the database.
 	 * @return a Connection the the database.
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -45,7 +48,8 @@ public class DataBaseUtils {
 	}
 
 	/**
- 	 * Prints the database table of @param tableName
+ 	 * Prints the database table.
+ 	 * @param tableName the table name.
 	 */
 
 	public static void printMySQLTable(String tableName){

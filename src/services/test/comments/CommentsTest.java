@@ -8,7 +8,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class Test {
+public class CommentsTest {
 	
 	public static void main (String [] args){
 

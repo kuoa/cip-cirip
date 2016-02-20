@@ -48,7 +48,6 @@ public class AuthTest {
 			System.out.println(AuthUtils.getUserKey(3));
 			
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-
 			e.printStackTrace();
 		}
 				
