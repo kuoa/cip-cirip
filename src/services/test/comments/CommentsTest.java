@@ -1,36 +1,32 @@
 package services.test.comments;
+import database.DataBaseUtils;
 
-import java.util.logging.Level;
-
-import org.bson.Document;
-
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 
 public class CommentsTest {
-	
-	public static void main (String [] args){
 
-		/* Hide console output */
-		java.util.logging.Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE); 
+	public static void main(String[] args) {
+				
 		
+		//CommentsUtils.addComment(23, "Zeus", "By Zeus's Hammer");
+		//CommentsUtils.addComment(24, "Zeus1", "By Zeus's Hammer23");
+		//CommentsUtils.addComment(24, "Zeus2", "By Zeus's Hammer24");
 		
-		MongoClient mongo = new MongoClient("132.227.201.129", 27130);		
-		MongoDatabase db = mongo.getDatabase("gr3_postaru");		
+		//DataBaseUtils.printMongoCollection("comments");		
 		
-		MongoCollection <Document> collection = db.getCollection("testDB");
+		//JSONObject jo = ServicesComments.add("769221ad24cc4ba6b493b0b4a977e6ad", "live is good");
 		
-		Document doc = new Document();
+		//DataBaseUtils.printMySQLTable("users");
+		//DataBaseUtils.printMySQLTable("session");
 		
-		//doc.put("msg", "It Works!");
+		//System.out.println("\n" + jo + "\n");
 		
-		collection.insertOne(doc);				
+		DataBaseUtils.printMongoCollection("comments");
+		//CommentsUtils.printComments(CommentsUtils.getAllComments());
+		//CommentsUtils.printComments(CommentsUtils.getComments(6, false));
 		
-		Document myDoc = collection.find().first();
-		System.out.println(myDoc.toJson()); 
-		 
-		mongo.close();
+		//CommentsUtils.printComments(CommentsUtils.getCommentsByUserId(24, false));
+		//CommentsUtils.printComments(CommentsUtils.getCommentsByUserId(24, true));
+		
 		
 	}
 }

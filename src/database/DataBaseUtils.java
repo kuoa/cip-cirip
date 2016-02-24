@@ -7,7 +7,6 @@ import java.util.logging.Level;
 
 import org.bson.Document;
 
-import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -16,6 +15,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSetMetaData;
 import com.mysql.jdbc.Statement;
+
+import comments.CommentsUtils;
 
 public class DataBaseUtils {
 
@@ -130,19 +131,16 @@ public class DataBaseUtils {
 		}				
 	}
 	
-	public static void printMongoCollection (String collectionName){
+	public static void printMongoCollection (String collectionName){						
 		
 		MongoDatabase db = getMongoConnection();
-		MongoCollection<Document> collection = db.getCollection("comments");
+		MongoCollection<Document> collection = db.getCollection(CommentsUtils.COMMENTS);
 		
 		FindIterable<Document> iterable = collection.find();
 		
-		iterable.forEach(new Block<Document>() {
-		    @Override
-		    public void apply(final Document document) {
-		        System.out.println(document.toJson());
-		    }
-		});				
+		for (Document comment : iterable){
+			System.out.println(comment.toJson());
+		}		
 	}
 }
 

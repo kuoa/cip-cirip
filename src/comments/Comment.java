@@ -17,7 +17,12 @@ public class Comment {
 	private String imageUrl;				/** image url, if exists[#img URL]*/
 	private String videoUrl;				/** video url, if exists[#video URL] */	
 	
-	
+	/**
+	 * Create a new comment.
+	 * @param authorId authorId
+	 * @param authorLogin authorLogin
+	 * @param comment comment
+	 */
 	public Comment (int authorId, String authorLogin, String comment){
 		
 		document = new Document();
@@ -33,6 +38,12 @@ public class Comment {
 		this.videoUrl = parseVideoUrl();
 		
 	}
+	
+	/**
+	 * Return a comment Document ready to be inserted into the data base.
+	 * The comment is parsed for hashtags, images, videos.
+	 * @return a comment Document
+	 */
 	
 	public Document getDocument(){
 								

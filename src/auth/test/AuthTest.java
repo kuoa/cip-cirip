@@ -44,6 +44,10 @@ public class AuthTest {
 			/* getUserIdFromKey */
 			//System.out.println(AuthUtils.getUserIdFromKey("1137b6eb950b4df7a159e508df12f0a6"));
 			
+			/* getUserLoginFromId */
+			//System.out.println(AuthUtils.getUserLoginFromId(4);
+					
+			
 			/* getUserKey */
 			System.out.println(AuthUtils.getUserKey(3));
 			

@@ -236,6 +236,37 @@ public class AuthUtils {
 	 * @throws SQLException
 	 */
 
+	public static String getUserLoginFromId(int id)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+
+		String login = null;		
+		String sql = "SELECT login FROM users WHERE id = ?";
+
+		Connection connection = DataBaseUtils.getMySQLConnection();
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+		
+		ps.setInt(1, id);		
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+			login = rs.getString("login");			
+		}
+
+		ps.close();
+		connection.close();
+
+		return login;
+	}
+	
+	/**
+	 * Returns the login associated with the id from the users table.
+	 * @param id user id
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static int getUserIdFromLogin(String login)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 

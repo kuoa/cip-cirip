@@ -4,64 +4,74 @@
 	<display-name>cip-cirip</display-name> 
 	
 	<servlet> 
-		<servlet-name>create</servlet-name> 
+		<servlet-name>createUser</servlet-name> 
 		<servlet-class>services.servlets.user.Create</servlet-class> 
 	</servlet> 
 	
 	<servlet> 
-		<servlet-name>delete</servlet-name> 
+		<servlet-name>deleteUser</servlet-name> 
 		<servlet-class>services.servlets.user.Delete</servlet-class> 
 	</servlet> 
 	
 	<servlet> 
-		<servlet-name>login</servlet-name> 
+		<servlet-name>loginUser</servlet-name> 
 		<servlet-class>services.servlets.user.Login</servlet-class> 
 	</servlet> 
 	
 	<servlet> 
-		<servlet-name>logout</servlet-name> 
+		<servlet-name>logoutUser</servlet-name> 
 		<servlet-class>services.servlets.user.Logout</servlet-class> 
 	</servlet> 
 	
 	<servlet> 
-		<servlet-name>add</servlet-name> 
+		<servlet-name>addFriend</servlet-name> 
 		<servlet-class>services.servlets.friends.Add</servlet-class> 
 	</servlet> 
 	
 	<servlet> 
-		<servlet-name>remove</servlet-name> 
+		<servlet-name>removeFriend</servlet-name> 
 		<servlet-class>services.servlets.friends.Remove</servlet-class> 
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>addComment</servlet-name> 
+		<servlet-class>services.servlets.comments.Add</servlet-class> 
 	</servlet> 
 	
 	
 	<servlet-mapping> 
-		<servlet-name>create</servlet-name> 
+		<servlet-name>createUser</servlet-name> 
 		<url-pattern>/user/create</url-pattern> 
 	</servlet-mapping> 
 	
 	<servlet-mapping> 
-		<servlet-name>delete</servlet-name> 
+		<servlet-name>deleteUser</servlet-name> 
 		<url-pattern>/user/delete</url-pattern> 
 	</servlet-mapping> 
 	
 	<servlet-mapping> 
-		<servlet-name>login</servlet-name> 
+		<servlet-name>loginUser</servlet-name> 
 		<url-pattern>/user/login</url-pattern> 
 	</servlet-mapping> 
 	
 	<servlet-mapping> 
-		<servlet-name>logout</servlet-name> 
+		<servlet-name>logoutUser</servlet-name> 
 		<url-pattern>/user/logout</url-pattern> 
 	</servlet-mapping> 
 	
 	<servlet-mapping> 
-		<servlet-name>add</servlet-name> 
+		<servlet-name>addFriend</servlet-name> 
 		<url-pattern>/friends/add</url-pattern> 
 	</servlet-mapping> 
 	
 	<servlet-mapping> 
-		<servlet-name>remove</servlet-name> 
+		<servlet-name>removeFriend</servlet-name> 
 		<url-pattern>/friends/remove</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>AddComment</servlet-name> 
+		<url-pattern>/comments/add</url-pattern> 
 	</servlet-mapping> 
 	
 </web-app>

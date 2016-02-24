@@ -3,6 +3,7 @@ package friends;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -26,8 +27,7 @@ public class FriendsUtils {
 			throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException {
 				
-		Timestamp date = new Timestamp(System.currentTimeMillis());		
-		
+		Timestamp date = new Timestamp(System.currentTimeMillis());				
 
 		String sql = "INSERT INTO `friends` "
 				+ "(`from`, `to`, `date`)" + " VALUE(?,?,?)";
@@ -76,6 +76,10 @@ public class FriendsUtils {
 
 	}
 	
+	public static List<Integer> getFriendsForUserId(int id){
+		return null;
+	}
+	
 	/**
 	 * Tests if the two users are already friends.
 	 * @param fromId user id
@@ -107,4 +111,5 @@ public class FriendsUtils {
 		
 		return areFriends;
 	}
+		
 }
