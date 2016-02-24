@@ -29,6 +29,7 @@ public class ServicesComments {
 				return Services.serviceRefused("Please log in order to post a comment.", USER_LOGGED_OUT);
 			}			
 			
+			/* check if the login is valid */
 			String userLogin = AuthUtils.getUserLoginFromId(userId);
 			
 			if (userLogin == null){
