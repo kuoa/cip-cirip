@@ -11,3 +11,5 @@
  	- Add removeComment servlet.
 * [FriendUtils]
 	- Add getFriends method.
+* [AuthUtils.delete]
+	- Add mail verification.
