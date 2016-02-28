@@ -1,11 +1,15 @@
 package services.tools;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import auth.AuthUtils;
 import friends.FriendsUtils;
+import netscape.javascript.JSObject;
 
 public class ServicesFriends {
 
@@ -103,6 +107,53 @@ public class ServicesFriends {
 		}
 
 		return Services.serviceAccepted();
+	}
+	
+	/**
+	 * Returns a {@link JSObject} containing the list of friends for this user.
+	 * @param key session-key
+	 * @param friendLogin friendLogin
+	 * @return a {@link JSObject} containing the list of friends for this user
+	 */
+	
+	public static JSONObject get(String key, String friendLogin){
+		
+		final int USER_LOGGED_OUT = 1;
+		final int INCORECT_LOGIN = 2;
+		
+		JSONObject rezult = null;
+		
+		try {
+
+			/* check if the key is valid */
+			int fromId = AuthUtils.getUserIdFromKey(key);
+
+			if (fromId < 0) {
+				return Services.serviceRefused("Please log in.", USER_LOGGED_OUT);
+			}
+
+			/* check if login is valid */
+			int toId = AuthUtils.getUserIdFromLogin(friendLogin);
+
+			if (toId < 0) {
+				return Services.serviceRefused("Invalid username.", INCORECT_LOGIN);
+			}			
+						
+			List<JSONArray> friendList = FriendsUtils.getFriendsForUserId(toId);
+			
+			rezult = Services.serviceAccepted().put("friends", friendList);
+			
+		} catch (SQLException e) {
+			return Services.serviceRefused("SQL Error " + e.getMessage(), Services.SQL_ERROR);
+
+		} catch (JSONException e){
+			return Services.serviceRefused("JSON Error " + e.getMessage(), Services.JSON_ERROR);
+		
+		}catch (Exception e) {
+			return Services.serviceRefused("Java Error " + e.getMessage(), Services.JAVA_ERROR);
+		}
+											
+		return rezult;		
 	}
 
 }

@@ -3,6 +3,8 @@
 <web-app> 
 	<display-name>cip-cirip</display-name> 
 	
+	<!-- USER --> <!-- USER --> <!-- USER -->
+	
 	<servlet> 
 		<servlet-name>createUser</servlet-name> 
 		<servlet-class>services.servlets.user.Create</servlet-class> 
@@ -23,6 +25,8 @@
 		<servlet-class>services.servlets.user.Logout</servlet-class> 
 	</servlet> 
 	
+	<!-- FRIEND --> <!-- FRIEND --> <!-- FRIEND -->
+	
 	<servlet> 
 		<servlet-name>addFriend</servlet-name> 
 		<servlet-class>services.servlets.friends.Add</servlet-class> 
@@ -34,10 +38,36 @@
 	</servlet>
 	
 	<servlet> 
+		<servlet-name>getFriends</servlet-name> 
+		<servlet-class>services.servlets.friends.Get</servlet-class> 
+	</servlet>
+	
+	<!-- COMMENT --> <!-- COMMENT --> <!-- COMMENT -->
+	
+	<servlet> 
 		<servlet-name>addComment</servlet-name> 
 		<servlet-class>services.servlets.comments.Add</servlet-class> 
 	</servlet> 
 	
+	<servlet> 
+		<servlet-name>getUserComments</servlet-name> 
+		<servlet-class>services.servlets.comments.GetForUser</servlet-class> 
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>getFriendsComments</servlet-name> 
+		<servlet-class>services.servlets.comments.GetForFriends</servlet-class> 
+	</servlet> 
+		 
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- USER --> <!-- USER --> <!-- USER -->
 	
 	<servlet-mapping> 
 		<servlet-name>createUser</servlet-name> 
@@ -59,6 +89,8 @@
 		<url-pattern>/user/logout</url-pattern> 
 	</servlet-mapping> 
 	
+	<!-- FRIEND --> <!-- FRIEND --> <!-- FRIEND -->
+	
 	<servlet-mapping> 
 		<servlet-name>addFriend</servlet-name> 
 		<url-pattern>/friends/add</url-pattern> 
@@ -70,8 +102,25 @@
 	</servlet-mapping>
 	
 	<servlet-mapping> 
+		<servlet-name>getFriends</servlet-name> 
+		<url-pattern>/friends/get</url-pattern> 
+	</servlet-mapping>
+	
+	<!-- COMMENT --> <!-- COMMENT --> <!-- COMMENT -->
+	
+	<servlet-mapping> 
 		<servlet-name>addComment</servlet-name> 
 		<url-pattern>/comments/add</url-pattern> 
+	</servlet-mapping> 
+	
+	<servlet-mapping> 
+		<servlet-name>getUserComments</servlet-name> 
+		<url-pattern>/comments/get-for-user</url-pattern> 
+	</servlet-mapping> 
+	
+	<servlet-mapping> 
+		<servlet-name>getFriendsComments</servlet-name> 
+		<url-pattern>/comments/get-for-friends</url-pattern> 
 	</servlet-mapping> 
 	
 </web-app>

@@ -3,12 +3,18 @@ package friends;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
+import auth.AuthUtils;
 import database.DataBaseUtils;
 
 public class FriendsUtils {
@@ -76,8 +82,36 @@ public class FriendsUtils {
 
 	}
 	
-	public static List<Integer> getFriendsForUserId(int id){
-		return null;
+	/**
+	 * Returns a list of friends for this user.
+	 * @param id id
+	 * @return a list of friends for this user
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static List<JSONArray> getFriendsForUserId(int id)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, JSONException{
+		
+		String sql = "SELECT `to` FROM `friends` where `from` = ?";
+		List<JSONArray> friendList = new ArrayList<JSONArray>();
+		
+		Connection connection = DataBaseUtils.getMySQLConnection();
+		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
+		
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+						
+		while(rs.next()){
+			int friendId = rs.getInt("to");
+			
+			JSONObject friendIdJSON = new JSONObject().put("id", friendId);
+			JSONObject friendLoginJSON = new JSONObject().put("login", AuthUtils.getUserLoginFromId(friendId));
+			JSONArray friend = new JSONArray().put(friendIdJSON).put(friendLoginJSON);
+			friendList.add(friend);
+		}		
+		return friendList;
 	}
 	
 	/**
@@ -110,6 +144,5 @@ public class FriendsUtils {
 		}
 		
 		return areFriends;
-	}
-		
+	}		
 }
