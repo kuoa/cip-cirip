@@ -34,7 +34,9 @@
 
 - ### Add Friend
 - ### Remove Friend
-- ### Get Friends
+- ### Get User Friends
 
 - ### Add Comment
 - ### Remove Comment
+- ### Get User Comments
+- ### Get User's Friends Comments
