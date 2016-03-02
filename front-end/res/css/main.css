@@ -1,6 +1,6 @@
 body {
 	padding-top: 10px;
-	padding-buttom: 20px;
+	padding-bottom: 20px;
 	background-color: #fff;
 }
 
@@ -15,7 +15,7 @@ body {
 }
 
 .img-logo {
-	max-width: 300px;
+	max-width: 270px;
 	margin: 0 auto;
 }
 
