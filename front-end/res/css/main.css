@@ -4,21 +4,46 @@ body {
 	background-color: #fff;
 }
 
+.img-logo {
+	max-width: 200px;
+	margin: 0 auto;
+	margin-top: -15px;
+}
+
+.main-heading {
+	text-align: center;
+	padding-bottom: 10px;
+}
+
 .comment-zone {
 	max-width: 600px;
 	padding: 15px;
 	margin: 0 auto;
 }
 
-.comment{
+.comment {
+	max-width: 600px;	
+	margin: 20px auto;		
+}
+
+.user-url {
 	
 }
 
-.img-logo {
-	max-width: 270px;
-	margin: 0 auto;
+.hash-url:link, .hash-url:visited {	
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
 }
 
-.main-heading {
-	text-align: center;
+.hash-url:hover, .hash-url:active {
+	text-docation: none;
+}
+
+.hash-url {
+	text-color: black;
+}
+
+.time {
+	font-size: 0.8em;
 }
