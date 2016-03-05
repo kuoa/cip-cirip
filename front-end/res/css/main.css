@@ -15,6 +15,14 @@ body {
 	padding-bottom: 10px;
 }
 
+.navbar-form {
+}
+
+.form-control-input{
+	font-size: 13px;
+	max-width: 150px;
+}
+
 .comment-zone {
 	max-width: 600px;
 	padding: 15px;
@@ -47,3 +55,4 @@ body {
 .time {
 	font-size: 0.8em;
 }
+
