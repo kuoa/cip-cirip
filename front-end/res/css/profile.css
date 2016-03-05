@@ -1,5 +1,63 @@
 body {
 	padding-top: 10px;
 	padding-bottom: 20px;
-	background-color: #fff;	
+	background-color: #fff;
+}
+
+.main-heading {
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.navbar-form {
+	
+}
+
+.form-control-input {
+	font-size: 13px;
+	max-width: 150px;
+}
+
+.comment-zone {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.comment {
+	max-width: 600px;
+	margin: 20px auto;
+}
+
+.info {
+	max-width: 600px;
+	margin: 20px auto;
+	text-align: center;
+}
+
+.img-user {
+	max-width: 120px;
+	margin: 0 auto;	
+}
+
+.user-url {
+	/* background-color: #3498db;*/
+	
+}
+
+.hash-url:link, .hash-url:visited {
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+}
+
+.hash-url:hover, .hash-url:active {
+	text-docation: none;
+}
+
+.hash-url {
+	text-color: black;
+}
+
+.time {
+	font-size: 0.8em;
 }
