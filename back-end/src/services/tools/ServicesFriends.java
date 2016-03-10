@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import auth.AuthUtils;
 import friends.FriendsUtils;
-import netscape.javascript.JSObject;
 
 public class ServicesFriends {
 

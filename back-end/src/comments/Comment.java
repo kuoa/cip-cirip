@@ -7,6 +7,7 @@ import org.bson.Document;
 public class Comment {
 	
 	private Document document; 				/** comment document, inserted in the mongo database */
+	
 	private final int authorId;				/** author id */
 	private final String authorLogin;		/** author login */
 	private final Date date;				/** comment date */	
