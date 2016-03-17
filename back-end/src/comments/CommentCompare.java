@@ -13,8 +13,8 @@ public class CommentCompare implements Comparator<JSONObject> {
 		
 		try {
 			
-			int dateLeft = left.getJSONObject("date").getInt("$date");
-			int dateRight = right.getJSONObject("date").getInt("$date");
+			int dateLeft = left.getJSONObject("comment").getJSONObject("date").getInt("$date");
+			int dateRight = right.getJSONObject("comment").getJSONObject("date").getInt("$date");
 			
 			if (dateLeft < dateRight){
 				return 1;

@@ -2,7 +2,6 @@ package services.test.comments;
 
 import org.json.JSONObject;
 
-import comments.CommentsUtils;
 import database.DataBaseUtils;
 import services.tools.ServicesComments;
 
@@ -23,9 +22,9 @@ public class CommentsTest {
 		//ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Zeus");
 		//ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Hero");
 		
-		DataBaseUtils.printMySQLTable("users");
-		DataBaseUtils.printMySQLTable("friends");
-		DataBaseUtils.printMySQLTable("session");
+		//DataBaseUtils.printMySQLTable("users");
+		//DataBaseUtils.printMySQLTable("friends");
+		//DataBaseUtils.printMySQLTable("session");
 		
 		DataBaseUtils.printMongoCollection("comments");	
 		
@@ -43,14 +42,13 @@ public class CommentsTest {
 			
 			e.printStackTrace();
 		}
-		*/
+		*/	
 				
 		
-		CommentsUtils.addComment(5, "Zeus", "ZEUS ROCKS");
+		//CommentsUtils.addComment(5, "Zeus", "New COmment");
 		JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
-		
 		System.out.println(jo);
-									
+				
 		//CommentsUtils.printComments(CommentsUtils.getAllComments());
 		//CommentsUtils.printComments(CommentsUtils.getComments(6, false));
 		

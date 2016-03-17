@@ -67,18 +67,17 @@ public class CommentsUtils {
 	 * @return all the comments as Documents for a specific user.
 	 */
 	
-	private static FindIterable<Document> getCommentsDoc(int userId, boolean sort){
+	public static FindIterable<Document> getCommentsDoc(int userId, boolean sort){
 		
 		MongoDatabase db = DataBaseUtils.getMongoConnection();
 		MongoCollection<Document> collection = db.getCollection(COMMENTS);
-		
-		Document findMask = new Document("author_id", userId);
-		
-		
+				
+		Document findMask = new Document("author.id", userId);
+			
 		FindIterable<Document> comments;
-		
-		if(sort){
-			Document sortMask = new Document("date", -1);
+						
+		if(sort){		
+			Document sortMask = new Document("comment.date", -1);
 			comments = collection.find(findMask).sort(sortMask);
 		}
 		else {
