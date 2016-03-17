@@ -2,9 +2,13 @@
 --------------------
 ## General Output Template
 - #### Description
+- 
     ```
     SERVICE_ACCEPTED    : { status : "accepted" }
-    SERVICE_REFUSED     : { status : "error", code : error_code , message : "custom error message" }
+    SERVICE_REFUSED     : { status : "error", code : "error_code" , message : "custom error message" }
+    ```
+    ```
+    NOTE                : All the output forms contain one of these templates and eventually some additional information
     ```
 ## General Error Codes
 - #### Description
@@ -16,11 +20,12 @@
     ```
 
 ## Implemented Services 
+--------------------
 - #### Create User :
     ```
     Url         : /user/create
-    Description : creates a new user
-    Input       : { user, password, mail }
+    Description : creates a user
+    Input       : { user, pass, mail }
     Output      : { }
     ```
     ```
@@ -29,13 +34,48 @@
     ````
     
 - ### Delete User
+   ```
+    Url         : /user/delete
+    Description : deletes a existing user
+    Input       : { user, pass, mail }
+    Output      : { }
+    ```
+    ```
+    Error Codes
+    INCORECT_LOGIN      : 1;
+    INCORECT_PASSWORD   : 2;
+    INCORECT_MAIL       : 3;
+    ````
 - ### Login User
+   ```
+    Url         : /user/login
+    Description : login a existing user
+    Input       : { user, pass }
+    Output      : { id : "id", key : "key", username : "username" }
+    ```
+    ```
+    Error Codes
+    INCORECT_LOGIN      : 1;
+    INCORECT_PASSWORD   : 2;
+    ````
 - ### Logout User
-
+   ```
+    Url         : /user/logout
+    Description : logout a existing user
+    Input       : { user, pass }
+    Output      : { }
+    ```
+    ```
+    Error Codes
+    INCORECT_LOGIN      : 1;
+    INCORECT_PASSWORD   : 2;
+    ````
+    
+    ****
 - ### Add Friend
 - ### Remove Friend
 - ### Get User Friends
-
+    --------------------
 - ### Add Comment
 - ### Remove Comment
 - ### Get User Comments
