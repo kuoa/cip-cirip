@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bson.Document;
 
+import auth.RegexUtils;
+
 public class Comment {
 
 	private Document document;
@@ -76,35 +78,19 @@ public class Comment {
 		
 		document.append("author", author).append("comment", comm);				
 		
-		return document;
-		
-		
-		/*
-		document.append("author_id", authorId)
-				.append("author_login", authorLogin)
-				.append("date", date)
-				.append("comment", comment)
-				.append("reply_to_id", replyToId)
-				.append("likes", "null")
-				.append("hashtags", hashtags)
-				.append("image", imageUrl)
-				.append("video", videoUrl);
-		*/
+		return document;						
 	}
 
-	private String parseImageUrl() {
-		// TODO Auto-generated method stub
-		return null;
+	private String parseImageUrl() {		
+		return RegexUtils.parseImageUrl(comment);
 	}
 
 	private String parseVideoUrl() {
-		// TODO Auto-generated method stub
-		return null;
+		return RegexUtils.parseVideoUrl(comment);
 	}
 
 	private List<String> parseHashtags() {
-		// TODO Auto-generated method stub
-		return null;
+		return RegexUtils.parseHashTags(comment);
 	}
 
 	private int parseReplyToId() {

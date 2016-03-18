@@ -36,8 +36,17 @@ body {
 
 .img-user {
 	max-width: 120px;
-	margin: 0 auto;	
+	margin: 0 auto;
 }
+
+.img-comment {		
+	margin-top: 15px;
+}
+
+.video-comment {		
+	margin-top: 15px;
+}
+
 
 .user-url {
 	/* background-color: #3498db;*/

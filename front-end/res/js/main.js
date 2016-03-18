@@ -39,10 +39,6 @@ User.prototype.modifyStatus = function (){
 	this.friend = !this.friend;
 }
 
-User.prototype.getHtml = function(){
-	
-}
-
 /*---------------------------------------------*/
 /* Comment Object */
 /*---------------------------------------------*/
@@ -73,27 +69,51 @@ Comment.prototype.getLikesHtml = function (likes) { return ''; }
 
 Comment.prototype.getHashTagHtml = function (hashtags){	
 	
-	var html = '';	
+	var html = '<br>';	
 	
 	for (var i = 0; i < hashtags.length; i++){
-		html += ' <a href="" class="label-info hash-url">' + hashtags[i] + '</a> ';
+		html += '<a href="" class="label-info hash-url">' + hashtags[i] + '</a> ';
 	}	
 	
 	return html;
 }
-Comment.prototype.getImageHtml = function (image) { return ''; }
-Comment.prototype.getVideoHtml = function (video) { return ''; }
+Comment.prototype.getImageHtml = function (image){
+	
+	var html = '';
+	
+	if(image){		
+		html = '<img src="' + image + '" class="img-thumbnail img-comment" alt="">';
+	}		
+	
+	return html;
+}
+
+	
+Comment.prototype.getVideoHtml = function (video){ 
+	
+	var html = '';
+	
+	if (video){
+		html = '<div class="embed-responsive embed-responsive-16by9 video-comment">' + 
+					'<iframe width="560" height="315" src="' + video + '?rel=0&amp;controls=0" frameborder="0" allowfullscreen></iframe>'
+				+'</div>';
+		
+	}	
+	return html;
+}
 
 
 Comment.prototype.getHtml = function(){
 	
 	var hashtml = this.getHashTagHtml(this.hashtags);
 	var datehtml = this.getDateHtml(this.date);
+	var imagehtml = this.getImageHtml(this.imageUrl);
+	var videohtml = this.getVideoHtml(this.videoUrl);
 	
 	var html =		
 		'<div class="panel panel-primary comment">' +
 			'<div class="panel-body">' +
-				this.text + hashtml +
+				this.text + hashtml + imagehtml + videohtml +
 			'</div>' +
 			'<div class="panel-footer">' +
 				'<a href= "" class="badge user-url">' + this.authorLogin + '</a> ' +
@@ -218,7 +238,7 @@ var testUsers = function () {
 
 var testComment = function (){	
 	
-	comm = '{"comments":[{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458211807943},"image":null,"hashtags":null,"text":"New COmment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8bdf2d0fed117a9b00e7"}},{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458211423311},"image":null,"hashtags":null,"text":"New COmment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a5f2d0fed1110fa293f"}},{"author":{"id":4,"login":"Hero"},"comment":{"date":{"$date":1458211365162},"image":null,"hashtags":null,"text":"I am heros second comment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a252d0fed10e052f717"}},{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458211365121},"image":null,"hashtags":null,"text":"I am Zeuss comment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a252d0fed10e052f716"}},{"author":{"id":4,"login":"Hero"},"comment":{"date":{"$date":1458211364706},"image":null,"hashtags":null,"text":"I am heros comment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a242d0fed10e052f715"}}],"status":"succes"}';
+	comm = '{"comments":[{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458304559022},"image":"","hashtags":["#yolo","#swag","#SWA0"],"text":"Hey this is pretty cool right? #yolo #swag #SWA0","video":"","reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ebf62f2d0fed20d64d9deb"}},{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458304558981},"image":"","hashtags":["#video"],"text":"Hey check this #video https://www.youtube.com/embed/U5zZ1l4scgM coll right?","video":"https://www.youtube.com/embed/U5zZ1l4scgM","reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ebf62e2d0fed20d64d9dea"}},{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458304558570},"image":"https://s-media-cache-ak0.pinimg.com/736x/82/2f/c2/822fc271f3457af71e88d80b51346769.jpg","hashtags":["#image"],"text":"Hey check out this #image https://s-media-cache-ak0.pinimg.com/736x/82/2f/c2/822fc271f3457af71e88d80b51346769.jpg cool right?","video":"","reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ebf62e2d0fed20d64d9de9"}},{"author":{"id":4,"login":"Hero"},"comment":{"date":{"$date":1458304524803},"image":"","hashtags":[],"text":"I am heros second comment","video":"","reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ebf60c2d0fed209d35fb47"}},{"author":{"id":4,"login":"Hero"},"comment":{"date":{"$date":1458304524740},"image":"","hashtags":[],"text":"I am heros comment","video":"","reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ebf60c2d0fed209d35fb46"}}],"status":"succes"}';
 	new CommentList(comm);
 	var cHtml = environment.comments.getHtml(5);
 	$("#comment-zone").append(cHtml);
