@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -91,11 +90,11 @@ public class FriendsUtils {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static List<JSONArray> getFriendsForUserId(int id)
+	public static List<JSONObject> getFriendsForUserId(int id)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, JSONException{
 		
 		String sql = "SELECT `to` FROM `friends` where `from` = ?";
-		List<JSONArray> friendList = new ArrayList<JSONArray>();
+		List<JSONObject> friendList = new ArrayList<JSONObject>();
 		
 		Connection connection = DataBaseUtils.getMySQLConnection();
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
@@ -104,11 +103,11 @@ public class FriendsUtils {
 		ResultSet rs = ps.executeQuery();
 						
 		while(rs.next()){
+			
 			int friendId = rs.getInt("to");
 			
-			JSONObject friendIdJSON = new JSONObject().put("id", friendId);
-			JSONObject friendLoginJSON = new JSONObject().put("login", AuthUtils.getUserLoginFromId(friendId));
-			JSONArray friend = new JSONArray().put(friendIdJSON).put(friendLoginJSON);
+			JSONObject friend = new JSONObject().put("id", friendId).put("login", AuthUtils.getUserLoginFromId(friendId));					
+			
 			friendList.add(friend);
 		}		
 		return friendList;

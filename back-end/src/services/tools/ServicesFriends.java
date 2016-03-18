@@ -3,7 +3,6 @@ package services.tools;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -138,7 +137,7 @@ public class ServicesFriends {
 				return Services.serviceRefused("Invalid username.", INCORECT_LOGIN);
 			}			
 						
-			List<JSONArray> friendList = FriendsUtils.getFriendsForUserId(toId);
+			List<JSONObject> friendList = FriendsUtils.getFriendsForUserId(toId);
 			
 			rezult = Services.serviceAccepted().put("friends", friendList);
 			

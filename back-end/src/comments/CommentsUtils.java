@@ -1,6 +1,5 @@
 package comments;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -120,12 +119,12 @@ public class CommentsUtils {
 	public static List<JSONObject> getFriendsComments(int userId) 
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, JSONException{
 		
-		List <JSONArray> friendList = FriendsUtils.getFriendsForUserId(userId);			// get list of friends
+		List <JSONObject> friendList = FriendsUtils.getFriendsForUserId(userId);			// get list of friends
 		
 		List<JSONObject> friendsComments = new ArrayList<JSONObject>();					// prepare list of comments
 		
-		for (JSONArray array : friendList){
-			int friendId = array.getJSONObject(0).getInt("id");						
+		for (JSONObject f : friendList){
+			int friendId = f.getInt("id");						
 			
 			FindIterable<Document> comments = getCommentsDoc(friendId, false);				// for each friend get comment list
 			
