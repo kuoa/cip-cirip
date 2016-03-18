@@ -5,12 +5,14 @@
 /* initialise the local environment */
 function initialise(){
 
-	environment = new Object();
-	environment.users = new Object();
-	environment.comments = new Object();
+	environment = {};
+	environment.users = {};
+	environment.comments = {};
+	environment.friends = {};
 	
+	testFriends();
 	testUsers();
-	testComment();
+	testComment();	
 }
 
 /*---------------------------------------------*/
@@ -27,12 +29,18 @@ function User(id, login, friend){
 	}
 	
 	/* add user to the environmnet */
-	environment.users[id] = this;		
+	if (environment.users[id] == undefined){
+		environment.users[id] = this;
+		}	
 }
 
 /* modify friend status */
 User.prototype.modifyStatus = function (){
 	this.friend = !this.friend;
+}
+
+User.prototype.getHtml = function(){
+	
 }
 
 /*---------------------------------------------*/
@@ -50,32 +58,20 @@ function Comment(authorId, authorLogin, date, text, replyToId, likes, hashtags, 
 	this.hashtags = hashtags || [];
 	this.imageUrl = imageUrl || '';
 	this.videoUrl = videoUrl || '';	
-	
-	environment.comments[Comment.id] = this;
-	Comment.id ++;
 }
 
-/* Comment static methods */
-
-Comment.id = 0;
-
-Comment.init = function () {
-	id = 0;
-}
-
-Comment.getDateHtml = function (date){
+Comment.prototype.getDateHtml = function (date){
 	
-	var html = '';
-	
+	var html = '';	
 	html = date.toISOString();
 	
 	return html;
 }
 
-Comment.getReplyToIdHtml = function (id){ return ''; }
-Comment.getLikesHtml = function (likes) { return ''; }
+Comment.prototype.getReplyToIdHtml = function (id){ return ''; }
+Comment.prototype.getLikesHtml = function (likes) { return ''; }
 
-Comment.getHashTagHtml = function (hashtags){	
+Comment.prototype.getHashTagHtml = function (hashtags){	
 	
 	var html = '';	
 	
@@ -85,14 +81,14 @@ Comment.getHashTagHtml = function (hashtags){
 	
 	return html;
 }
-Comment.getImageHtml = function (image) { return ''; }
-Comment.getVideoHtml = function (video) { return ''; }
+Comment.prototype.getImageHtml = function (image) { return ''; }
+Comment.prototype.getVideoHtml = function (video) { return ''; }
 
 
 Comment.prototype.getHtml = function(){
 	
-	var hashtml = Comment.getHashTagHtml(this.hashtags);
-	var datehtml = Comment.getDateHtml(this.date);
+	var hashtml = this.getHashTagHtml(this.hashtags);
+	var datehtml = this.getDateHtml(this.date);
 	
 	var html =		
 		'<div class="panel panel-primary comment">' +
@@ -109,37 +105,14 @@ Comment.prototype.getHtml = function(){
 }
 
 /*---------------------------------------------*/
-/* Comment List */
+/* Comment List 							   */
 /*---------------------------------------------*/
 
-function CommentList () {};
-
-CommentList.prototype.getHtml = function(n){	
+function CommentList (bruteComments) {
 	
-	var size = Math.min (n, this.comments);
-	var html = '';
-	
-	for (var i = 0; i < size; i++){
-		
-		var comment = comments[i];		
-		html += comment.getHtml();
-	}
-	
-	return html;	
-}
-
-CommentList.fromJson = function(bruteComments){
-	
-	var comments = JSON.parse(bruteComments);
-	CommentList.parseComment(comments);
-	
-	if (comments.error != undefined){
-		alert("Error in parsing comments, null!");
-		return undefined;
-	}	
-	
-	return comments;
-}
+	this.list = CommentList.fromJSON(bruteComments);
+	environment.comments = this;
+};
 
 CommentList.parseComment = function (c){
 	var author = c.author;
@@ -147,28 +120,117 @@ CommentList.parseComment = function (c){
 	var id = c._id;
 	var date = new Date (comment.date.$date);
 	
-	u = new User(author.id, author.login, true);
+	// since we load friends first, this friend is not assigned in env here
+	new User(author.id, author.login, false);
+	
 	comm = new Comment(author.id, author.login, date, comment.text, 
 			comment.reply_to_id, comment.likes, comment.hashtags, comment.image, comment.video);
 	
+	return comm;
+}
+
+CommentList.fromJSON = function(bruteComments){
+	
+	var comments = [];
+	var stringComments = JSON.parse(bruteComments).comments;
+	
+	for (var i = 0; i < stringComments.length; i++){
+		var comment = stringComments[i];
+		
+		var c = CommentList.parseComment(comment);
+		comments.push(c);
+	}			
+	
+	return comments;
+}
+
+CommentList.prototype.getHtml = function(n){	
+	
+	var size = Math.min (n, this.list.length);
+	var html = '';
+	
+	for (var i = 0; i < size; i++){
+		
+		var comment = this.list[i];		
+		html += comment.getHtml();
+	}
+	
+	return html;	
 }
 
 
+/*---------------------------------------------*/
+/* FriendList								   */
+/*---------------------------------------------*/
+
+function FriendList(bruteFriends){
+	
+	this.list = FriendList.fromJSON(bruteFriends);	
+	environment.friends = this;
+}
+
+FriendList.fromJSON = function (bruteFriends){
+	
+	var friends = [];
+	var stringFriends = JSON.parse(bruteFriends).friends;
+	
+	for (var i = 0; i < stringFriends.length; i++){
+		f = FriendList.parse(stringFriends[i]);
+		friends.push(f);
+	}
+	
+	return friends;
+}
+
+FriendList.parse = function(f){	
+		
+	var friend = new User(f.id, f.login, true);
+	
+	return friend;
+}
+
+FriendList.prototype.getHtml = function (){
+	var html = '';
+	
+	for (var i = 0; i < this.list.length; i++){
+		html += '<a href="">' + this.list[i].login + '</a> ';
+	}
+	
+	return html;
+
+}
+
+FriendList.prototype.getCountHtml = function (){
+	return this.list.length;
+}
+
 
 /*---------------------------------------------*/
-/* Test Zone */
+/* Test Zone 								   */
 /*---------------------------------------------*/
 
 var testUsers = function () {
-	var u1 = new User(1, "F1", true);
-	var u2 = new User(2, "F2", true);	
+	//var u1 = new User(1, "F1", true);
+	//var u2 = new User(2, "F2", true);	
+		
+	//c1 = '{ "_id" : { "$oid" : "56ea8bdf2d0fed117a9b00e7" }, "author" : { "id" : 5, "login" : "Zeus" }, "comment" : { "date" : { "$date" : 1458211807943 }, "text" : "New COmment", "reply_to_id" : 0, "likes" : "null", "hashtags" : null, "image" : null, "video" : null } }';
+}
+
+var testComment = function (){	
 	
-	c1 = '{ "_id" : { "$oid" : "56ea8bdf2d0fed117a9b00e7" }, "author" : { "id" : 5, "login" : "Zeus" }, "comment" : { "date" : { "$date" : 1458211807943 }, "text" : "New COmment", "reply_to_id" : 0, "likes" : "null", "hashtags" : null, "image" : null, "video" : null } }';
+	comm = '{"comments":[{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458211807943},"image":null,"hashtags":null,"text":"New COmment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8bdf2d0fed117a9b00e7"}},{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458211423311},"image":null,"hashtags":null,"text":"New COmment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a5f2d0fed1110fa293f"}},{"author":{"id":4,"login":"Hero"},"comment":{"date":{"$date":1458211365162},"image":null,"hashtags":null,"text":"I am heros second comment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a252d0fed10e052f717"}},{"author":{"id":5,"login":"Zeus"},"comment":{"date":{"$date":1458211365121},"image":null,"hashtags":null,"text":"I am Zeuss comment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a252d0fed10e052f716"}},{"author":{"id":4,"login":"Hero"},"comment":{"date":{"$date":1458211364706},"image":null,"hashtags":null,"text":"I am heros comment","video":null,"reply_to_id":0,"likes":"null"},"_id":{"$oid":"56ea8a242d0fed10e052f715"}}],"status":"succes"}';
+	new CommentList(comm);
+	var cHtml = environment.comments.getHtml(5);
+	$("#comment-zone").append(cHtml);
 }
 
-var testComment = function (){
-	var comment = new Comment(1, "UserLogin", new Date(), "This is a comment.", 10, [], ["#hello", "#hi"]);
-	$("#main").append(comment.getHtml());
+var testFriends = function (){
+	friends = '{"friends":[{"id":4,"login":"Hero"},{"id":5,"login":"Zeus"}],"status":"succes"}';
+	new FriendList(friends);
+	var fHtml = environment.friends.getHtml();
+	var cHtml = environment.friends.getCountHtml();
+	
+	$("#friends").append(fHtml);
+	$("#friendCount").append(cHtml);
+	
 }
-
-

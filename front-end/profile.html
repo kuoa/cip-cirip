@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body onload="initialise();">	
 
 	<!-- Navbar -->
 
@@ -56,7 +56,7 @@
 						<h5>I wish i was a little bit less rabbit.</h5>
 						<hr>
 						<h4>Friends</h4>
-						<h5>12</h5>
+						<h5 id="friendCount"></h5>
 					</div>
 				</div>
 
@@ -90,114 +90,8 @@
 				</form>
 
 				<hr>
-				<div class="comment-zone">
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							This is one <a href="@cool" class="label-info hash-url">#cool</a>
-							show. I mean this is awesome and good. Yuhuu ^_^!
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
-
-					<div class="panel panel-primary comment">
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor <a href="@officia" class="label-info hash-url">#cool</a>
-							deserunt mollit anim id est.
-						</div>
-						<div class="panel-footer">
-							<a href="@Random_dude" class="badge user-url">@Random_dude</a> <span
-								class="time">12 minutes ago</span>
-						</div>
-					</div>
+				<div class="comment-zone" id="comment-zone">
+				
 				</div>
 			</div>
 
@@ -207,11 +101,10 @@
 
 				<div class="panel panel-primary info">
 					<div class="panel-heading">
-						<h3 class="panel-title">Likes</h3>
+						<h3 class="panel-title">Follows</h3>
 					</div>
-					<div class="panel-body">
-						<a href="">Dave</a> | <a href="">John_Rabbit</a> | <a href="">Frog</a>
-						| <a href="">elephant_joe</a>
+					<div class="panel-body" id="friends">
+
 					</div>
 				</div>
 
@@ -241,12 +134,18 @@
 		</div>
 	</footer>
 
+
+	<!-- My javascript -->
+	<script type="text/javascript" src="res/js/main.js"></script>
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	
 	<script src="res/js/bootstrap.min.js"></script>
 </body>
 
 </html>
 
+	
