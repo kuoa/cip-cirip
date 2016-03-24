@@ -19,9 +19,13 @@ public class GetForFriends extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		String key = req.getParameter("key");
-		String userLogin = req.getParameter("userLogin");
+		String userLogin = req.getParameter("user");
 		
 		PrintWriter out = res.getWriter();
+		
+		// TODO Add all
+		res.addHeader("Access-Control-Allow-Origin", "*");
+		
 		JSONObject jo = ServicesComments.getForFriends(key, userLogin);
 		
 		out.println(jo.toString());

@@ -2,11 +2,7 @@ package services.test.comments;
 
 import org.json.JSONObject;
 
-import auth.RegexUtils;
-import comments.CommentsUtils;
-import database.DataBaseUtils;
 import services.tools.ServicesComments;
-import services.tools.ServicesFriends;
 
 public class CommentsTest {
 
@@ -51,9 +47,9 @@ public class CommentsTest {
 
 		
 
-		String c1 = "Hey check out this #image https://s-media-cache-ak0.pinimg.com/736x/82/2f/c2/822fc271f3457af71e88d80b51346769.jpg cool right?";
-		String c2 = "Hey check this #video https://www.youtube.com/watch?v=s1JsBhRCRH0 coll right?";
-		String c3 = "Hey this is pretty cool right? #yolo #swag #SWA0";
+		//String c1 = "Hey check out this #image https://s-media-cache-ak0.pinimg.com/736x/82/2f/c2/822fc271f3457af71e88d80b51346769.jpg cool right?";
+		//String c2 = "Hey check this #video https://www.youtube.com/watch?v=s1JsBhRCRH0 coll right?";
+		//String c3 = "Hey this is pretty cool right? #yolo #swag #SWA0";
 		
 		//CommentsUtils.addComment(5, "Zeus", c1);
 		//CommentsUtils.addComment(5, "Zeus", c2);

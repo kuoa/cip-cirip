@@ -19,7 +19,7 @@ public class GetForUser extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		String key = req.getParameter("key");
-		String userLogin = req.getParameter("userLogin");
+		String userLogin = req.getParameter("user");
 		
 		PrintWriter out = res.getWriter();
 		JSONObject jo = ServicesComments.getForUser(key, userLogin);
