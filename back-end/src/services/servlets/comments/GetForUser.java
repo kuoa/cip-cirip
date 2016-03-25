@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesComments;
 
 public class GetForUser extends HttpServlet {
@@ -19,10 +20,12 @@ public class GetForUser extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		String key = req.getParameter("key");
-		String userLogin = req.getParameter("user");
+		String user = req.getParameter("userLogin");
+		
+		Services.addHeader(res);
 		
 		PrintWriter out = res.getWriter();
-		JSONObject jo = ServicesComments.getForUser(key, userLogin);
+		JSONObject jo = ServicesComments.getForUser(key, user);
 		
 		out.println(jo.toString());
 		

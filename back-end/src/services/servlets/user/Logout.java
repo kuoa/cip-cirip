@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesUser;
 
 public class Logout extends HttpServlet {
@@ -21,6 +22,8 @@ public class Logout extends HttpServlet {
 						
 		String key = req.getParameter("key");
 				
+		Services.addHeader(res);
+		
 		PrintWriter out = res.getWriter();
 		JSONObject jo = ServicesUser.logout(key);
 		

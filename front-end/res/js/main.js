@@ -3,7 +3,7 @@
 /*---------------------------------------------*/
 
 /* initialise the local environment */
-function initialise(){
+function initProfile(){
 
 	environment = {};
 	environment.users = {};
@@ -13,6 +13,10 @@ function initialise(){
 	testFriends();
 	testUsers();
 	testComment();	
+}
+
+function initLogin(){
+	$('#form-login').submit(login);	
 }
 
 /*---------------------------------------------*/

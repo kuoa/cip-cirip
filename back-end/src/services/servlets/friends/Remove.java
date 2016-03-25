@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesFriends;
 
 public class Remove extends HttpServlet {
@@ -20,6 +21,8 @@ public class Remove extends HttpServlet {
 		
 		String key = req.getParameter("key");
 		String friendLogin = req.getParameter("friendLogin");
+		
+		Services.addHeader(res);
 		
 		PrintWriter out = res.getWriter();
 		JSONObject jo = ServicesFriends.remove(key, friendLogin);

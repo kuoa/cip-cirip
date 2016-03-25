@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesUser;
 
 public class Login extends HttpServlet {
@@ -21,6 +22,8 @@ public class Login extends HttpServlet {
 						
 		String user = req.getParameter("user");
 		String pass = req.getParameter("pass");
+		
+		Services.addHeader(res);
 		
 		PrintWriter out = res.getWriter();
 		JSONObject jo = ServicesUser.login(user, pass);

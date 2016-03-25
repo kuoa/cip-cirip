@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesComments;
 
 public class Add extends HttpServlet {
@@ -20,6 +21,8 @@ public class Add extends HttpServlet {
 		
 		String key = req.getParameter("key");
 		String comment = req.getParameter("comment");
+		
+		Services.addHeader(res);
 		
 		PrintWriter out = res.getWriter();
 		JSONObject jo = ServicesComments.add(key, comment);

@@ -2,6 +2,8 @@ package services.tools;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,5 +64,9 @@ public class Services {
 		}
 				
 		return jo;			
+	}
+	
+	public static void addHeader(HttpServletResponse res){
+		res.addHeader("Access-Control-Allow-Origin", "*");
 	}
 }

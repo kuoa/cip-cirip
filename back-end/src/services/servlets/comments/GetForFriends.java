@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesComments;
 
 public class GetForFriends extends HttpServlet {
@@ -19,14 +20,12 @@ public class GetForFriends extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		String key = req.getParameter("key");
-		String userLogin = req.getParameter("user");
+		String user = req.getParameter("userLogin");
 		
-		PrintWriter out = res.getWriter();
+		Services.addHeader(res);
 		
-		// TODO Add all
-		res.addHeader("Access-Control-Allow-Origin", "*");
-		
-		JSONObject jo = ServicesComments.getForFriends(key, userLogin);
+		PrintWriter out = res.getWriter();					
+		JSONObject jo = ServicesComments.getForFriends(key, user);
 		
 		out.println(jo.toString());
 		

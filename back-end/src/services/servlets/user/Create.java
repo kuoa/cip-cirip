@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import services.tools.Services;
 import services.tools.ServicesUser;
 
 public class Create extends HttpServlet {
@@ -22,6 +23,8 @@ public class Create extends HttpServlet {
 		String user = req.getParameter("user");
 		String pass = req.getParameter("pass");
 		String mail = req.getParameter("mail");
+		
+		Services.addHeader(res);
 		
 		PrintWriter out = res.getWriter();
 		JSONObject jo = ServicesUser.create(user, pass, mail);

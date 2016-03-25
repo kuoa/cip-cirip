@@ -3,6 +3,7 @@ package services.test.comments;
 import org.json.JSONObject;
 
 import services.tools.ServicesComments;
+import services.tools.ServicesUser;
 
 public class CommentsTest {
 
@@ -55,8 +56,9 @@ public class CommentsTest {
 		//CommentsUtils.addComment(5, "Zeus", c2);
 		//CommentsUtils.addComment(5, "Zeus", c3);
 
-		JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
-		// JSONObject jo =
+		//JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
+		
+		 JSONObject jo = ServicesUser.login("TestUser", "T3stUser@");
 		// ServicesFriends.get("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		System.out.println(jo);
 
