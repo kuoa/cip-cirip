@@ -2,7 +2,7 @@ package services.test.comments;
 
 import org.json.JSONObject;
 
-import services.tools.ServicesComments;
+import database.DataBaseUtils;
 import services.tools.ServicesUser;
 
 public class CommentsTest {
@@ -26,7 +26,7 @@ public class CommentsTest {
 
 		// DataBaseUtils.printMySQLTable("users");
 		// DataBaseUtils.printMySQLTable("friends");
-		// DataBaseUtils.printMySQLTable("session");
+		 DataBaseUtils.printMySQLTable("session");		 
 
 		// DataBaseUtils.printMongoCollection("comments");
 

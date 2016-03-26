@@ -31,7 +31,8 @@
 			<nav>
 				<ul class="navbar nav nav-pills pull-right">
 					<li role="presentation" class="active"><a href="index.html">Home</a></li>
-					<li role="presentation"><a href="settings.html">Settings</a></li>
+					<li role="presentation"><a href="#">Auth</a></li>
+					<li role="presentation"><a href="settings.html">Settings</a></li>					
 					<li role="presentation"><a href="#">Logout</a></li>
 				</ul>
 			</nav>
@@ -44,82 +45,18 @@
 		<div class="row">
 
 			<!-- Left panel -->
-			<div class="col-md-3">
-				<div class="panel panel-primary info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Hi</h3>
-					</div>
-					<div class="panel-body">
-						<img src="res/images/user.jpg" alt="User"
-							class="img-responsive img-circle img-user">
-						<h4>Dave Rabbit</h4>
-						<h5>I wish i was a little bit less rabbit.</h5>
-						<hr>
-						<h4>Friends</h4>
-						<h5 id="friendCount"></h5>
-					</div>
-				</div>
-
-				<div class="panel panel-primary info">
-					<div class="panel-heading">
-						<h3 class="panel-title">About</h3>
-					</div>
-					<div class="panel-body">
-						<p>Aenean lacinia bibendum nulla sed consectetur. Vestibulum
-							id ligula porta felis euismod semper. Morbi leo risus, porta ac
-							consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac
-							facilisis in, egestas eget quam. Vestibulum id ligula porta felis
-							euismod semper.</p>
-					</div>
-				</div>
+			<div class="col-md-3" id="left-panel">				
 
 			</div>
 
 			<!-- Center panel -->
-			<div class="col-md-6">
-				<hr>
-
-				<form class="submit-comment comment">
-					<div class="form-group">
-						<label class="sr-only" for="comment">Comment:</label>
-						<textarea class="form-control" rows="2" name="comment"
-							placeholder="I am thinking about ..." required autofocus></textarea>
-						
-						<button type="submit" class="btn btn-info btn-block">submit</button>
-					</div>
-				</form>
-
-				<hr>
-				<div class="comment-zone" id="comment-zone">
+			<div class="col-md-6" id="center-panel">
 				
-				</div>
 			</div>
 
 
 			<!-- Right-panel -->
-			<div class="col-md-3">
-
-				<div class="panel panel-primary info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Follows</h3>
-					</div>
-					<div class="panel-body" id="friends">
-
-					</div>
-				</div>
-
-				<div class="panel panel-primary info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Photos</h3>
-					</div>
-					<div class="panel-body">
-						<p>Aenean lacinia bibendum nulla sed consectetur. Vestibulum
-							id ligula porta felis euismod semper. Morbi leo risus, porta ac
-							consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac
-							facilisis in, egestas eget quam. Vestibulum id ligula porta felis
-							euismod semper.</p>
-					</div>
-				</div>
+			<div class="col-md-3" id="right-panel">		
 
 			</div>
 		</div>
