@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Profile</title>
+<title>Settings</title>
 
 <!-- Bootstrap -->
 <link href="res/css/yetti.css" rel="stylesheet">
@@ -13,32 +13,34 @@
 
 </head>
 
-<body onload="initProfile();">	
+<body>
 
-	<!-- Navbar -->	
+	<!-- Navbar -->
 
-
-	<!-- Main part -->
 	<div class="container">
-		<div class="row">
+		<div class="pull-right">
+			<form class="navbar-form" role="search">
+				<div class="input-group">
+					<input type="text" class="form-control-input" placeholder="Search"
+						name="search-term" id="search-term">
+				</div>
+			</form>
+		</div>
 
-			<!-- Left panel -->
-			<div class="col-md-3" id="left-panel">				
-
-			</div>
-
-			<!-- Center panel -->
-			<div class="col-md-6" id="center-panel">
-				
-			</div>
-
-
-			<!-- Right-panel -->
-			<div class="col-md-3" id="right-panel">		
-
-			</div>
+		<div class="header clearfix">
+			<nav>
+				<ul class="navbar nav nav-pills pull-right">
+					<li role="presentation" class="active"><a href="index.html">Home</a></li>
+					<li role="presentation"><a href="profile.html">Profile</a></li>
+					<li role="presentation"><a href="#">Logout</a></li>
+				</ul>
+			</nav>
 		</div>
 	</div>
+
+
+	
+			
 
 	<footer class="footer">
 		<div class="container">
@@ -51,18 +53,15 @@
 
 
 	<!-- My javascript -->
-	<script type="text/javascript" src="res/js/client-objects.js"></script>
-	<script type="text/javascript" src="res/js/client-server.js"></script>
-	<script type="text/javascript" src="res/js/client-magic.js"></script>		
-	
+	<script type="text/javascript" src="res/js/main.js"></script>
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	
+
 	<script src="res/js/bootstrap.min.js"></script>
 </body>
 
 </html>
 
-	

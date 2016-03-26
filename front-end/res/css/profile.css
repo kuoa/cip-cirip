@@ -22,6 +22,29 @@ body {
 	
 }
 
+.form-login {
+	max-width: 300px;
+	padding : 15px;
+	margin : 0 auto;		
+}
+
+.form-login-heading {
+	text-align: center;
+}
+
+body {
+    padding-right:0px !important;
+    margin-right:0px !important;
+}
+
+body.modal-open {
+    overflow: auto;
+}
+
+body.modal-close {
+    overflow: auto;
+}
+
 .img-logo {
 	max-width: 200px;
 	margin: 0 auto;

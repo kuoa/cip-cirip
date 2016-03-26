@@ -56,9 +56,12 @@ function generateTopPanel(){
 	
 	var topHtml = getNavbarHtml();
 	var headerHtml = getHeaderHtml();	
+	var modalHtml = getAuthModalHtml();
 	
 	$('body').prepend(topHtml);
-	$('#center-panel').prepend(headerHtml);		
+	$('body').prepend(modalHtml);
+	$('#center-panel').prepend(headerHtml);
+	
 }
 
 

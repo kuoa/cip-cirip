@@ -341,13 +341,15 @@ function getNavbarHtml(){
 	
 	var auth = '';
 	var logout = '';
+	var settings = '';
 	
 	if(user){
 		auth = '';
 		logout = '<li role="presentation"><a href="#">Logout</a></li>';
+		settings = '<li role="presentation"><a href="#" data-toggle="modal" data-target="#modal-settings">Settings</a></li>';
 	}
 	else{
-		auth = '<li role="presentation"><a href="#">Auth</a></li>';
+		auth = '<li role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal">Auth</a></li>';
 		logout = '';
 	}	
 	
@@ -367,7 +369,7 @@ function getNavbarHtml(){
 						'<ul class="navbar nav nav-pills pull-right">' +
 							'<li role="presentation" class="active"><a href="">Home</a></li>' +
 								auth +
-							'<li role="presentation"><a href="settings.html">Settings</a></li>' +
+								settings +
 								logout +
 						'</ul>' + 
 					'</nav>' +
@@ -390,4 +392,154 @@ function getHeaderHtml(){
 				'</div>';					
 	}
 	return html;		
+}
+
+function getAuthModalHtml(){
+	var user = environment.profile;
+	var html = '';
+	
+	if(!user){
+		html += 	
+		'<!-- Modal login-in-->' +
+		'<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">' +
+		  '<div class="modal-dialog" role="document">' +
+		    '<div class="modal-content">   ' +
+		      
+		      '<div class="modal-header">' +
+			'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+			  '<span aria-hidden="true">&times;</span>' +
+			'</button>' +
+		      '</div>' +
+		      '<div class="modal-body">' +
+			'<form class="form-login" id="form-login">' +	
+			  '<img src="res/css/images/logo.jpg" alt="Welcome!"' +
+			      ' class="img-responsive img-circle">' +
+			  
+			  '<h2 class="form-login-heading" id="login-msg">log in</h2>' +	  
+			  '<div class="form-group">' +
+			    '<label class="sr-only" for="user">Username</label>' +
+			    '<input ' +
+			       'type="text" class="form-control" name="user" id="user"' +
+			       'placeholder="user name" required autofocus>' +
+			  '</div>' +
+			  
+			  '<div class="form-group">' +
+			    '<label class="sr-only" for="pass">Password</label>' +
+			    '<input ' +
+			       'type="password" class="form-control" name="pass" id="pass"' +
+			       'placeholder="password" required>' +
+			  '</div>' +
+			  
+			  '<button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>' +
+			  '<a href="#" role="button"' +
+			     'class="btn btn-success btn-lg btn-block " data-toggle="modal" data-target="#signIn-modal"' +
+			     'class="close" data-dismiss="modal">sign in</a>' +
+			'</form>' +
+		      '</div>     ' +
+		    '</div>' +
+		  '</div>' +
+		'</div>' +
+
+		'<!-- Modal sign-in-->' +
+		'<div class="modal fade" id="signIn-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">' +
+		  '<div class="modal-dialog" role="document">' +
+		    '<div class="modal-content">   ' +
+		      
+		      '<div class="modal-header">' +
+			'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+			  '<span aria-hidden="true">&times;</span>' +
+			'</button>' +
+		      '</div>' +
+		      '<div class="modal-body">	' +
+			
+			'<form class="form-login">' +
+			  
+			 '<img src="res/css/images/logo.jpg" alt="Welcome!"' +
+			       'class="img-responsive img-circle">' +
+			  
+			  '<h2 class="form-login-heading">sign in</h2>' +
+			  
+			  '<div class="form-group">' +
+			    '<label class="sr-only" for="user">Username</label>' +
+			    '<input ' +
+			       'type="text" class="form-control" name="user"' +
+			       'placeholder="user name" required autofocus>' +
+			  '</div>' +
+			  
+			  '<div class="form-group">' +
+			    '<label class="sr-only" for="pass">Password</label>' +
+			    '<input ' +
+			       'type="password" class="form-control" name="pass"' +
+			       'placeholder="password" required>' +
+			  '</div>' +
+			  
+			  '<div class="form-group">' +
+			    '<label class="sr-only" for="pass-re">Password</label>' +
+			    '<input ' +
+			       'type="password" class="form-control" name="pass-re"' +
+			       'placeholder="repeat password" required>' +
+			  '</div>' +
+			  
+			  '<div class="form-group">' +
+			    '<label class="sr-only" for="mail">Mail</label>' +
+			    '<input type="email"' +
+				   'class="form-control" name="mail" placeholder="email" required>' +
+			  '</div>' +
+			  
+			  '<button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>' +
+			  
+			'</form>' +
+		      	
+		      '</div> ' +
+		    '</div>' +
+		  '</div>' +
+		'</div>'; 						
+	}
+	else {
+		html += '<!-- Modal Settings-->' +
+		'<div class="modal fade bs-example-modal-lg" id="modal-settings" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">' +
+		  '<div class="modal-dialog modal-lg"> ' +
+		    '<div class="modal-content">' +
+		      '<div class="modal-header"> ' +
+			'<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+			  '<span aria-hidden="true">&times;</span>' +
+			'</button>' +
+		      '</div>' +
+
+		      '<form class="submit-comment comment"> ' +
+			'<div class="form-group">' +
+			  '<h3>Bio</h3>' +
+			  '<label class="sr-only" for="update-bio">Bio</label>' +
+			  '<textarea class="form-control" rows="1" name="update-bio"' +
+				    'placeholder="Enter a new bio description ..." required maxlength="100"></textarea>' +
+			  '<button type="submit" class="btn btn-info btn-block">submit</button>' +
+			'</div>' +
+		      '</form>' +
+		      
+		     '<form class="submit-comment comment">' +
+			'<div class="form-group">' +
+			  '<h3>About</h3>' +
+			  '<label class="sr-only" for="update-info">About</label>' +
+			  '<textarea class="form-control" rows="2" name="update-about"' +
+				    'placeholder="Enter a new about section" required maxlength="300" ></textarea>' +
+			  '<button type="submit" class="btn btn-info btn-block">submit</button>' +
+			'</div>' +
+		      '</form>' +
+		      
+		      '<form class="submit-comment comment">' +
+			'<div class="form-group">' +
+			  '<h3>Image</h3>' +
+			  '<label class="sr-only" for="update-img">Profile image</label>' +
+			  '<textarea class="form-control" rows="2" name="update-bio"' +
+				    'placeholder="Enter a new image url ..." required maxlength="300"></textarea>' +
+			  '<button type="submit" class="btn btn-info btn-block ">submit</button>' +
+			'</div>' +
+		      '</form>' +
+		      
+		    '</div>' +
+		  '</div>' +
+		'</div>';
+	}
+	
+	return html;
 }
