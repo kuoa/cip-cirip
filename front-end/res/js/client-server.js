@@ -24,7 +24,7 @@ function serverRequest(url, data, doneFun){
 /* 				    User					   */
 /*---------------------------------------------*/
 
-function login(eventt){
+function login(event){
 	
 	var url = "/user/login";
 	var user = $('#user-login').val();
@@ -41,8 +41,7 @@ function login(eventt){
 			var message = json.message;			
 			$('#login-msg').text(message);
 		}
-		else{			
-			
+		else{						
 			//get bio, image, about, photos
 			
 			var id = json.id;

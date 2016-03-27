@@ -3,16 +3,12 @@
 /*---------------------------------------------*/
 
 function initProfile(){
-		
+
 	initLocalData();
-	initUser();
-	initFriends();
-	initComments();
-			
+	initComments(); 	// latest general comments
 	
 	generatePage();
-	generateEvents();
-	
+	generateEvents();	
 }
 
 function initLocalData(){
@@ -22,20 +18,6 @@ function initLocalData(){
 	environment.users = {};
 	environment.comments = {};
 	environment.friends = {};	
-}
-
-function initUser(){
-	
-	/*
-	u = new User(101, "Jack_Rabbit", false, "I wish i was taller", "res/images/user.jpg", 
-			"Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper." +
-			" Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in," +
-			" egestas eget quam. Vestibulum id ligula porta felis euismod semper.", "Photosasdas");
-						
-	
-	environment.profile = u;
-	//environment.profile = false;
-	*/
 }
 
 
@@ -69,8 +51,9 @@ function initFriends (){
 function generatePage(){	
 	
 	generateTopPanel();
-	generateLeftPanel();
 	generateCenterPanel();
+	
+	generateLeftPanel();	
 	generateRightPanel();	
 }
 
@@ -80,8 +63,8 @@ function generateTopPanel(){
 	var headerHtml = getHeaderHtml();	
 	var modalHtml = getAuthModalHtml();
 	
-	$('body').prepend(topHtml);
-	$('body').prepend(modalHtml);
+	$('.navbar').empty().append(topHtml);	
+	$('.my-modal').append(modalHtml);
 	$('#center-panel').prepend(headerHtml);
 	
 	var user = environment.profile;
@@ -116,14 +99,17 @@ function generateCenterPanel(){
 	var user = environment.profile;
 	var comments = environment.comments;
 	
-	if (user){
-		
+	if (user){		
 		var commentHtml = user.getCommentHtml();		
-		$('#center-panel').append(commentHtml);		
+		$('#center-panel').empty().append(commentHtml);
+		
+		var commentsHtml = comments.getHtml(5);
+		$("#center-panel").append(commentsHtml);		
 	}
-	
-	var commentsHtml = comments.getHtml(5);
-	$("#center-panel").append(commentsHtml);
+	else{
+		var commentsHtml = comments.getHtml(5);
+		$("#center-panel").append(commentsHtml);
+	}		
 }
 
 function generateRightPanel(){

@@ -338,27 +338,28 @@ function getNavbarHtml(){
 	
 	var html = ''; 	
 	
-	html =	'<div class="container">' +
-				'<div class="pull-right">' +
-					'<form class="navbar-form" role="search">' +
-						'<div class="input-group">' +
-							'<input type="text" class="form-control-input" placeholder="Search"' +
-								'name="search-term" id="search-term">' +
-						'</div>' +
-					'</form>' +
-				'</div>' +
-			
-				'<div class="header clearfix">' +
-					'<nav>' +
-						'<ul class="navbar nav nav-pills pull-right">' +
-							'<li role="presentation" class="active"><a href="">Home</a></li>' +
-							'<li role="presentation" id="auth"><a href="#" data-toggle="modal" data-target="#login-modal">Auth</a></li>' +
-							 '<li role="presentation" id="settings"><a href="#" data-toggle="modal" data-target="#modal-settings">Settings</a></li>' +
-							 '<li role="presentation" id="logout"><a href="#">Logout</a></li>' +														
-						'</ul>' + 
-					'</nav>' +
-				'</div>' +
-			'</div>';
+	html = 			
+			'<div class="container">' +
+					'<div class="pull-right">' +
+						'<form class="navbar-form" role="search">' +
+							'<div class="input-group">' +
+								'<input type="text" class="form-control-input" placeholder="Search"' +
+									'name="search-term" id="search-term">' +
+							'</div>' +
+						'</form>' +
+					'</div>' +
+				
+					'<div class="header clearfix">' +
+						'<nav>' +
+							'<ul class="navbar nav nav-pills pull-right">' +
+								'<li role="presentation" class="active"><a href="">Home</a></li>' +
+								'<li role="presentation" id="auth"><a href="#" data-toggle="modal" data-target="#login-modal">Auth</a></li>' +
+								 '<li role="presentation" id="settings"><a href="#" data-toggle="modal" data-target="#modal-settings">Settings</a></li>' +
+								 '<li role="presentation" id="logout"><a href="#">Logout</a></li>' +														
+							'</ul>' + 
+						'</nav>' +
+					'</div>' +
+				'</div>';			
 	
 	return html;							
 }
@@ -370,7 +371,7 @@ function getHeaderHtml(){
 	
 	if(!user){
 		html += '<div class="container comment">' + 			
-					'<img src="res/css/images/" alt=""' +
+					'<img src="" alt=""' +
 						'class="img-responsive img-circle img-logo">' +
 					'<h2 class="main-heading">lately</h2>' +
 				'</div>';					
@@ -523,7 +524,6 @@ function getAuthModalHtml(){
 		    '</div>' +
 		  '</div>' +
 		'</div>';
-	}
-	
+	}	
 	return html;
 }
