@@ -1,9 +1,6 @@
 package services.test.comments;
 
-import org.json.JSONObject;
-
 import database.DataBaseUtils;
-import services.tools.ServicesUser;
 
 public class CommentsTest {
 
@@ -25,7 +22,7 @@ public class CommentsTest {
 		// ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Hero");
 
 		 DataBaseUtils.printMySQLTable("users");
-		// DataBaseUtils.printMySQLTable("friends");
+		 DataBaseUtils.printMySQLTable("friends");
 		 DataBaseUtils.printMySQLTable("session");		 
 
 		// DataBaseUtils.printMongoCollection("comments");
@@ -58,9 +55,9 @@ public class CommentsTest {
 
 		//JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		
-		 JSONObject jo = ServicesUser.login("TestUser", "T3stUser@");
+		 //JSONObject jo = ServicesUser.login("TestUser", "T3stUser@");
 		// ServicesFriends.get("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
-		System.out.println(jo);
+		//System.out.println(jo);
 
 
 		// System.out.println(RegexUtils.parseImageUrl(c1));

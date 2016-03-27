@@ -57,11 +57,12 @@ function login(event){
 			environment.profile = user;
 			environment.profile.key = key;			
 			environment.users[id] = undefined;
-			
-			
+						
 			initComments();
 			initFriends();
+			
 			generatePage();
+			generateEvents();
 			
 			$('#login-modal').modal('toggle');
 		}
@@ -70,6 +71,82 @@ function login(event){
 	serverRequest(url, data, doneFun);
 	return false;	
 }
+
+
+function signin(event){
+	
+	var url = "/user/create";
+	var user = $('#user-signin').val();
+	var pass = $('#pass-signin').val();
+	var passRe = $('#pass-re-signin').val();
+	var mail = $('#mail-signin').val();
+	
+	if(pass != passRe){
+		var msg = "Please provide identical passwords."
+		
+		$('#signin-msg').text(msg);				
+		return false;
+	}
+	
+	var data = {
+		user : user,
+		pass : pass,
+		mail : mail,
+	};
+	
+	var doneFun = function(json){		
+						
+		if(json.status === "error"){
+			var message = json.message;				
+			$('#signin-msg').text(message);			
+		}
+		else{						
+			
+			var msg = user + " you can now login.";
+			$('#signin-msg').text(msg);
+			
+			$(document).ready(function() {
+			    setTimeout(function() {		    	
+			      $('#signIn-modal').modal('hide');
+			    }, 4000); // milliseconds
+			});
+		}
+	}	
+	serverRequest(url, data, doneFun);
+	return false;	
+}
+
+
+function logout(event){	
+	
+	var url = "/user/logout";
+		
+	var key = environment.profile.key;			
+	
+	var data = {
+		key : key
+	};
+	
+	var doneFun = function(json){		
+						
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {
+									
+			initLocalData();
+			initComments();
+			
+			generatePage();
+			generateEvents();
+		}
+	}	
+	serverRequest(url, data, doneFun);
+	return false;	
+}
+
 	
 
 /*---------------------------------------------*/

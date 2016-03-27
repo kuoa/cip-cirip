@@ -59,13 +59,11 @@ function generatePage(){
 
 function generateTopPanel(){
 	
-	var topHtml = getNavbarHtml();
-	var headerHtml = getHeaderHtml();	
+	var topHtml = getNavbarHtml();	
 	var modalHtml = getAuthModalHtml();
 	
 	$('.navbar').empty().append(topHtml);	
-	$('.my-modal').append(modalHtml);
-	$('#center-panel').prepend(headerHtml);
+	$('.my-modal').append(modalHtml);	
 	
 	var user = environment.profile;
 	
@@ -91,6 +89,10 @@ function generateLeftPanel(){
 		$("#left-panel").append(mainHtml);
 		$("#left-panel").append(aboutHtml);
 	}
+	else{
+		$("#left-panel").empty();
+		$("#left-panel").empty();
+	}
 
 }
 
@@ -108,6 +110,9 @@ function generateCenterPanel(){
 	}
 	else{
 		var commentsHtml = comments.getHtml(5);
+		var headerHtml = getHeaderHtml();	
+		
+		$('#center-panel').empty().append(headerHtml);
 		$("#center-panel").append(commentsHtml);
 	}		
 }
@@ -123,8 +128,15 @@ function generateRightPanel(){
 		$('#right-panel').prepend(friendsHtml);
 		$('#right-panel').append(photosHtml);
 	}	
+	else{
+		$('#right-panel').empty();
+		$('#right-panel').empty();
+	}
 }
 
 function generateEvents(){
 	$('#btn-login').click(login);
+	$('#btn-signin').click(signin);
+	$('#logout').click(logout);
+	
 }

@@ -353,9 +353,9 @@ function getNavbarHtml(){
 						'<nav>' +
 							'<ul class="navbar nav nav-pills pull-right">' +
 								'<li role="presentation" class="active"><a href="">Home</a></li>' +
-								'<li role="presentation" id="auth"><a href="#" data-toggle="modal" data-target="#login-modal">Auth</a></li>' +
-								 '<li role="presentation" id="settings"><a href="#" data-toggle="modal" data-target="#modal-settings">Settings</a></li>' +
-								 '<li role="presentation" id="logout"><a href="#">Logout</a></li>' +														
+								'<li role="presentation"><a href="#" id="auth" data-toggle="modal" data-target="#login-modal">Auth</a></li>' +
+								 '<li role="presentation"><a href="#" id="settings" data-toggle="modal" data-target="#modal-settings">Settings</a></li>' +
+								 '<li role="presentation"><a href="#" id="logout">Logout</a></li>' +														
 							'</ul>' + 
 						'</nav>' +
 					'</div>' +
@@ -441,9 +441,8 @@ function getAuthModalHtml(){
 			  
 			 '<img src="res/css/images/logo.jpg" alt="Welcome!"' +
 			       'class="img-responsive img-circle">' +
-			  
-			  '<h2 class="form-login-heading">sign in</h2>' +
-			  
+			  			  
+			  '<h2 class="form-login-heading" id="signin-msg">sign in</h2>' +
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="user">Username</label>' +
 			    '<input ' +
@@ -471,7 +470,7 @@ function getAuthModalHtml(){
 				   'class="form-control" name="mail" id="mail-signin" placeholder="email" required>' +
 			  '</div>' +
 			  
-			  '<button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>' +
+			  '<button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-signin">submit</button>' +
 			  
 			'</form>' +
 		      	

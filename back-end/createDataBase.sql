@@ -2,11 +2,11 @@
 
 USE gr3_postaru
 
-DROP TABLE IF EXISTS users ;
+/* DROP TABLE IF EXISTS users ; */
 DROP TABLE IF EXISTS `session`;
-DROP TABLE IF EXISTS friends ; 
+/* DROP TABLE IF EXISTS friends ; */
 
-
+/*
 CREATE TABLE users 
       (id INTEGER PRIMARY KEY auto_increment,
       login VARCHAR (20) NOT NULL UNIQUE,
@@ -14,6 +14,8 @@ CREATE TABLE users
       email VARCHAR (255),
       name VARCHAR (255)
       );
+
+*/
 
 
 CREATE TABLE `session`
@@ -24,7 +26,7 @@ CREATE TABLE `session`
        INDEX(`key`, `user_id`, `expires`)
        );
 
-
+/*
 CREATE TABLE friends
        (`from` INTEGER,
        `to` INTEGER,
@@ -32,3 +34,4 @@ CREATE TABLE friends
 
        PRIMARY key (`from`, `to`)
        );
+*/
