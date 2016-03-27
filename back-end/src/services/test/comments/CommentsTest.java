@@ -24,7 +24,7 @@ public class CommentsTest {
 		// ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Zeus");
 		// ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Hero");
 
-		// DataBaseUtils.printMySQLTable("users");
+		 DataBaseUtils.printMySQLTable("users");
 		// DataBaseUtils.printMySQLTable("friends");
 		 DataBaseUtils.printMySQLTable("session");		 
 

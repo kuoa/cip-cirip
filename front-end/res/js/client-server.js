@@ -2,7 +2,7 @@
 /* 				Generic functions 			   */
 /*---------------------------------------------*/
 		
-var root = "http://li328.lip6.fr:8280/girraffe";
+var root = "http://li328.lip6.fr:8280/Giraffe";
 
 function serverRequest(url, data, doneFun){
 	
@@ -20,40 +20,15 @@ function serverRequest(url, data, doneFun){
 	});
 }
 
-function createCookie(name,value,days) {
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime()+(days*24*60*60*1000));
-		var expires = "; expires="+date.toGMTString();
-	}
-	else var expires = "";
-	document.cookie = name+"="+value+expires+"; path=/";
-}
-
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
-}
-
-function eraseCookie(name) {
-	createCookie(name,"",-1);
-}
-	
 /*---------------------------------------------*/
 /* 				    User					   */
 /*---------------------------------------------*/
 
-function login(element){
+function login(eventt){
 	
 	var url = "/user/login";
-	var user = $('#user').val();
-	var pass = $('#pass').val();
+	var user = $('#user-login').val();
+	var pass = $('#pass-login').val();
 	
 	var data = {
 		user : user,
@@ -68,23 +43,33 @@ function login(element){
 		}
 		else{			
 			
-			createCookie("userId", json.id, 1);
-			createCookie("userKey", json.key, 1);
-			createCookie("userLogin", json.username, 1);
+			//get bio, image, about, photos
 			
-			//alert(json.id + json.key + json.username);
+			var id = json.id;
+			var key = json.key;
+			var friend = false;
+			var login = json.username;
+			var bio = "Don't forget to make api for bio."
+			var image = "Don't forget to make api for image."
+			var about = "Don't forget to make api for about."
+			var photos = "Don't forget to make api for photos."
 			
-			alert(readCookie("userId"));
-			alert(readCookie("userKey"));
-			alert(readCookie("userLogin"));
+			user = new User(id, login, friend, bio, image, about, photos);
+			environment.profile = user;
+			environment.profile.key = key;			
+			environment.users[id] = undefined;
 			
-			//window.location.replace("profile.html");
-					
+			
+			initComments();
+			initFriends();
+			generatePage();
+			
+			$('#login-modal').modal('toggle');
 		}
 	}
 	
 	serverRequest(url, data, doneFun);
-	return false;
+	return false;	
 }
 	
 
@@ -92,7 +77,7 @@ function login(element){
 /* 				Friends						   */
 /*---------------------------------------------*/
 		
-function commentGetForFriends(element){
+function commentGetForFriends(event){
 	
 	var url = "/comments/get-for-friends";
 	

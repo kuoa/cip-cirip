@@ -25,19 +25,19 @@ public class ServicesUser {
 		/* username check */
 
 		if (!(RegexUtils.validArg(login) && RegexUtils.validUser(login))) {
-			return Services.serviceRefused("Invalid username.", Services.MISSING_ARG);
+			return Services.serviceRefused("Incorect username.", Services.MISSING_ARG);
 		}
 
 		/* password check */
 
 		if (!(RegexUtils.validArg(pass) && RegexUtils.validPassword(pass))) {
-			return Services.serviceRefused("Invalid password.", Services.MISSING_ARG);
+			return Services.serviceRefused("Incorect password.", Services.MISSING_ARG);
 		}
 
 		/* mail check */
 
 		if (!(RegexUtils.validArg(mail) && (RegexUtils.validMail(mail)))) {
-			return Services.serviceRefused("Invalid mail adress.", Services.MISSING_ARG);
+			return Services.serviceRefused("Incorect mail adress.", Services.MISSING_ARG);
 		}
 
 		try {
@@ -81,13 +81,13 @@ public class ServicesUser {
 		/* username check */
 
 		if (!(RegexUtils.validArg(login) && RegexUtils.validUser(login))) {
-			return Services.serviceRefused("Invalid username.", Services.MISSING_ARG);
+			return Services.serviceRefused("Incorect username.", Services.MISSING_ARG);
 		}
 
 		/* password check */
 
 		if (!(RegexUtils.validArg(pass) && RegexUtils.validPassword(pass))) {
-			return Services.serviceRefused("Incorect password", INCORECT_PASSWORD);
+			return Services.serviceRefused("Incorect password.", INCORECT_PASSWORD);
 		}
 
 		try {
@@ -163,7 +163,7 @@ public class ServicesUser {
 		/* username check */
 
 		if (!(RegexUtils.validArg(login) && RegexUtils.validUser(login))) {
-			return Services.serviceRefused("Invalid username.", Services.MISSING_ARG);
+			return Services.serviceRefused("Incorect username.", Services.MISSING_ARG);
 		}
 
 		/* password check */

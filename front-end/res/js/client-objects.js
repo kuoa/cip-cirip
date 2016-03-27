@@ -30,7 +30,7 @@ function User(id, login, friend, bio, image, about, photos){
 	/* add user to the environmnet */
 	if (environment.users[id] == undefined){
 		environment.users[id] = this;
-		}	
+	}	
 }
 
 /* modify friend status */
@@ -336,23 +336,7 @@ FriendList.prototype.getCountHtml = function (){
 
 function getNavbarHtml(){
 	
-	var html = ''; 
-	var user = environment.profile;
-	
-	var auth = '';
-	var logout = '';
-	var settings = '';
-	
-	if(user){
-		auth = '';
-		logout = '<li role="presentation"><a href="#">Logout</a></li>';
-		settings = '<li role="presentation"><a href="#" data-toggle="modal" data-target="#modal-settings">Settings</a></li>';
-	}
-	else{
-		auth = '<li role="presentation"><a href="#" data-toggle="modal" data-target="#login-modal">Auth</a></li>';
-		logout = '';
-	}	
-	
+	var html = ''; 	
 	
 	html =	'<div class="container">' +
 				'<div class="pull-right">' +
@@ -368,9 +352,9 @@ function getNavbarHtml(){
 					'<nav>' +
 						'<ul class="navbar nav nav-pills pull-right">' +
 							'<li role="presentation" class="active"><a href="">Home</a></li>' +
-								auth +
-								settings +
-								logout +
+							'<li role="presentation" id="auth"><a href="#" data-toggle="modal" data-target="#login-modal">Auth</a></li>' +
+							 '<li role="presentation" id="settings"><a href="#" data-toggle="modal" data-target="#modal-settings">Settings</a></li>' +
+							 '<li role="presentation" id="logout"><a href="#">Logout</a></li>' +														
 						'</ul>' + 
 					'</nav>' +
 				'</div>' +
@@ -419,18 +403,18 @@ function getAuthModalHtml(){
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="user">Username</label>' +
 			    '<input ' +
-			       'type="text" class="form-control" name="user" id="user"' +
+			       'type="text" class="form-control" name="user" id="user-login"' +
 			       'placeholder="user name" required autofocus>' +
 			  '</div>' +
 			  
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="pass">Password</label>' +
 			    '<input ' +
-			       'type="password" class="form-control" name="pass" id="pass"' +
+			       'type="password" class="form-control" name="pass" id="pass-login"' +
 			       'placeholder="password" required>' +
 			  '</div>' +
 			  
-			  '<button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>' +
+			  '<button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-login">submit</button>' +
 			  '<a href="#" role="button"' +
 			     'class="btn btn-success btn-lg btn-block " data-toggle="modal" data-target="#signIn-modal"' +
 			     'class="close" data-dismiss="modal">sign in</a>' +
@@ -462,28 +446,28 @@ function getAuthModalHtml(){
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="user">Username</label>' +
 			    '<input ' +
-			       'type="text" class="form-control" name="user"' +
+			       'type="text" class="form-control" name="user" id="user-signin"' +
 			       'placeholder="user name" required autofocus>' +
 			  '</div>' +
 			  
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="pass">Password</label>' +
 			    '<input ' +
-			       'type="password" class="form-control" name="pass"' +
+			       'type="password" class="form-control" name="pass" id="pass-signin"' +
 			       'placeholder="password" required>' +
 			  '</div>' +
 			  
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="pass-re">Password</label>' +
 			    '<input ' +
-			       'type="password" class="form-control" name="pass-re"' +
+			       'type="password" class="form-control" name="pass-re" id="pass-re-signin"' +
 			       'placeholder="repeat password" required>' +
 			  '</div>' +
 			  
 			  '<div class="form-group">' +
 			    '<label class="sr-only" for="mail">Mail</label>' +
 			    '<input type="email"' +
-				   'class="form-control" name="mail" placeholder="email" required>' +
+				   'class="form-control" name="mail" id="mail-signin" placeholder="email" required>' +
 			  '</div>' +
 			  
 			  '<button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>' +

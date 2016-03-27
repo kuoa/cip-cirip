@@ -85,7 +85,7 @@ public class ServicesFriends {
 			int toId = AuthUtils.getUserIdFromLogin(friendLogin);
 
 			if (toId < 0) {
-				return Services.serviceRefused("Invalid friend username.", INCORECT_FRIEND_LOGIN);
+				return Services.serviceRefused("Incorect friend username.", INCORECT_FRIEND_LOGIN);
 			}
 
 			/* check if they are friends */
