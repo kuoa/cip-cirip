@@ -82,7 +82,7 @@ function generateLeftPanel(){
 		var mainHtml = user.getMainSectionHtml();
 		var aboutHtml = user.getAboutHtml();
 		
-		$("#left-panel").append(mainHtml);
+		$("#left-panel").empty().append(mainHtml);
 		$("#left-panel").append(aboutHtml);
 	}
 	else{
@@ -121,7 +121,7 @@ function generateRightPanel(){
 		var friendsHtml = user.getFriendsHtml();
 		var photosHtml = user.getPhotosHtml();
 	
-		$('#right-panel').prepend(friendsHtml);
+		$('#right-panel').empty().append(friendsHtml);
 		$('#right-panel').append(photosHtml);
 	}	
 	else{
@@ -131,8 +131,9 @@ function generateRightPanel(){
 }
 
 function generateEvents(){
+
 	$('#btn-login').click(login);
 	$('#btn-signin').click(signin);
 	$('#logout').click(logout);
-	
+	$('#form-comment').submit(addComment);
 }

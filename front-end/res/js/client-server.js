@@ -168,6 +168,44 @@ function logout(event){
 /* 				Comments					   */
 /*---------------------------------------------*/
 
+function addComment(event){		
+	
+	event.preventDefault();
+	
+	var url = "/comments/add";
+	
+	var key = environment.profile.key;			
+	var comment = $('#comment-value').val();
+	
+	var data = {
+		key : key,
+		comment : comment
+	};
+	
+	var doneFun = function(json){		
+						
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {			
+			
+			$(document).ready(function() {
+			    setTimeout(function() {		    	
+			      $('#comment-modal').modal('hide');
+			    }, 1000); // milliseconds
+			});
+			
+			initComments();			
+			generatePage();
+			generateEvents();
+		}
+	}	
+	serverRequest(url, data, doneFun);	
+	return false;
+}
+
 function searchComment(event){	
 	
 	var url = "/comments/search";

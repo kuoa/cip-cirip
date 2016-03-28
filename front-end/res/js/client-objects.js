@@ -89,13 +89,13 @@ User.prototype.getAboutHtml = function(){
 User.prototype.getCommentHtml = function(){
 	
 	var html = '';
-	
+		
 	html += '<hr>' + 
 	
-		'<form class="submit-comment comment">' +
+		'<form class="submit-comment comment" id="form-comment">' +
 			'<div class="form-group">' +
 				'<label class="sr-only" for="comment">Comment:</label>' +
-				'<textarea class="form-control" rows="2" name="comment"' +
+				'<textarea class="form-control" rows="2" name="comment" id="comment-value"' +
 					'placeholder="I am thinking about ..." required autofocus></textarea>' +				
 				'<button type="submit" class="btn btn-info btn-block">submit</button>' + 
 			'</div>' + 
@@ -106,7 +106,7 @@ User.prototype.getCommentHtml = function(){
 		
 		'</div>';
 	
-	return html;
+	return html;		
 }
 
 User.prototype.getFriendsHtml = function(){

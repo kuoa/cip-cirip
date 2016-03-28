@@ -59,9 +59,9 @@ public class CommentsTest {
 		 //ServicesUser.login("TestUser", "T3stUser@");
 		//JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		
-		 //JSONObject jo = ServicesComments.search("", "", false);
+		 JSONObject jo = ServicesComments.search("", "", false);
 		 
-		JSONObject jo = ServicesComments.getForFriends("5ebf158490e647e594405682bbabc842", "TestUser");
+		//JSONObject jo = ServicesComments.getForFriends("5ebf158490e647e594405682bbabc842", "TestUser");
 		System.out.println(jo);
 		 		 
 
