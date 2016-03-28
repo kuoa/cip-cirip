@@ -7,9 +7,26 @@ var root = "http://li328.lip6.fr:8280/Giraffe";
 function serverRequest(url, data, doneFun){
 	
 	var request = $.ajax({
-		url: root + url,		
-		data: data,
-		dataType: "json"	
+		url : root + url,		
+		data : data,
+		dataType : "json"	
+	});
+			
+	request.done(doneFun);
+	
+	request.fail(function(msg) {
+		console.log("Fail");
+		console.log(msg);
+	});
+}
+
+function serverRequestAsync(url, data, doneFun){
+	
+	var request = $.ajax({
+		url : root + url,		
+		data : data,
+		dataType : "json",
+		async : false
 	});
 			
 	request.done(doneFun);
@@ -146,26 +163,104 @@ function logout(event){
 	serverRequest(url, data, doneFun);
 	return false;	
 }
-
 	
+/*---------------------------------------------*/
+/* 				Comments					   */
+/*---------------------------------------------*/
+
+function searchComment(event){	
+	
+	var url = "/comments/search";
+	var userLogin = '';
+	var query = '';
+	var forFriends = '';
+	
+	if (event != undefined){
+		userLogin = $('#login').value();
+		query = $('#query').value();
+		forFriends = $('#friends').value();
+	}		
+
+	var data = {
+			userLogin : userLogin,			
+			query : query,
+			forFriends : forFriends
+	};
+	
+			
+	function doneFun(json){		
+						
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {
+			new CommentList(json);				
+		}
+	}
+	
+	serverRequestAsync(url, data, doneFun);
+	return false;
+}
+
+		
+function getFriendsComments(event){
+	
+	var url = "/comments/get-for-friends";
+	
+	var key = environment.profile.key;
+	var userLogin = environment.profile.login;
+	
+	var data = {
+		key : key,
+		userLogin: userLogin
+	};
+	
+	function doneFun(json){		
+		
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {
+			new CommentList(json);				
+		}
+	}
+	
+	serverRequestAsync(url, data, doneFun);
+	return false;		
+}
 
 /*---------------------------------------------*/
 /* 				Friends						   */
 /*---------------------------------------------*/
-		
-function commentGetForFriends(event){
+
+function getFriendsList(event){
 	
-	var url = "/comments/get-for-friends";
+	var url = "/friends/get";
+	
+	var key = environment.profile.key;
+	var userLogin = environment.profile.login;
 	
 	var data = {
-		key : "769221ad24cc4ba6b493b0b4a977e6ad",
-		userLogin: "TestUser"
+		key : key,
+		userLogin: userLogin
 	};
 	
-	var doneFun = function(msg) {
-		console.log("Done");
-		console.log(msg);
-	};
+	function doneFun(json){		
+		
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {
+			new FriendList(json);					
+		}
+	}
 	
-	serverRequest(url, data, doneFun);				
+	serverRequestAsync(url, data, doneFun);
+	return false;		
 }

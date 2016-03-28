@@ -247,8 +247,8 @@ CommentList.parseComment = function (c){
 	var date = new Date (comment.date.$date);
 	
 	// since we load friends first, this friend is not assigned in env here
-	new User(author.id, author.login, false);
-	
+	u = new User(author.id, author.login, false);
+			
 	comm = new Comment(author.id, author.login, date, comment.text, 
 			comment.reply_to_id, comment.likes, comment.hashtags, comment.image, comment.video);
 	
@@ -258,7 +258,7 @@ CommentList.parseComment = function (c){
 CommentList.fromJSON = function(bruteComments){
 	
 	var comments = [];
-	var stringComments = JSON.parse(bruteComments).comments;
+	var stringComments = bruteComments.comments;
 	
 	for (var i = 0; i < stringComments.length; i++){
 		var comment = stringComments[i];
@@ -274,11 +274,11 @@ CommentList.prototype.getHtml = function(n){
 	
 	var size = Math.min (n, this.list.length);
 	var html = '';
-	
+			
 	for (var i = 0; i < size; i++){
 		
 		var comment = this.list[i];		
-		html += comment.getHtml();
+		html += comment.getHtml();		
 	}
 	
 	return html;	
@@ -298,7 +298,7 @@ function FriendList(bruteFriends){
 FriendList.fromJSON = function (bruteFriends){
 	
 	var friends = [];
-	var stringFriends = JSON.parse(bruteFriends).friends;
+	var stringFriends = bruteFriends.friends;
 	
 	for (var i = 0; i < stringFriends.length; i++){
 		f = FriendList.parse(stringFriends[i]);
@@ -309,8 +309,15 @@ FriendList.fromJSON = function (bruteFriends){
 }
 
 FriendList.parse = function(f){	
-		
-	var friend = new User(f.id, f.login, true);
+	
+	var friend = environment.users[f.id];
+	
+	if (friend == undefined){
+		friend = new User(f.id, f.login, true);
+	}
+	else{
+		friend.modifyStatus();		
+	}		
 	
 	return friend;
 }
