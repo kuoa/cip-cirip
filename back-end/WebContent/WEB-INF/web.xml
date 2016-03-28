@@ -58,6 +58,11 @@
 		<servlet-name>getFriendsComments</servlet-name> 
 		<servlet-class>services.servlets.comments.GetForFriends</servlet-class> 
 	</servlet> 
+	
+	<servlet> 
+		<servlet-name>searchComments</servlet-name> 
+		<servlet-class>services.servlets.comments.Search</servlet-class> 
+	</servlet> 
 		 
 	
 	
@@ -121,6 +126,11 @@
 	<servlet-mapping> 
 		<servlet-name>getFriendsComments</servlet-name> 
 		<url-pattern>/comments/get-for-friends</url-pattern> 
+	</servlet-mapping> 
+	
+	<servlet-mapping> 
+		<servlet-name>searchComments</servlet-name> 
+		<url-pattern>/comments/search</url-pattern> 
 	</servlet-mapping> 
 	
 </web-app>

@@ -16,6 +16,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import auth.AuthUtils;
 import database.DataBaseUtils;
 import friends.FriendsUtils;
 
@@ -58,6 +59,7 @@ public class CommentsUtils {
 		
 		return comments;						
 	}
+			
 	
 	/**
 	 * Returns all the comments as Documents, for a specific user, sorted if needed.
@@ -85,6 +87,7 @@ public class CommentsUtils {
 		
 		return comments;		
 	}
+
 	
 	/**
 	 * Returns all the comments as a list of {@link JSONObject}, for a specific user, sorted if needed.
@@ -121,6 +124,9 @@ public class CommentsUtils {
 		
 		List <JSONObject> friendList = FriendsUtils.getFriendsForUserId(userId);			// get list of friends
 		
+		JSONObject user = new JSONObject().put("id", userId).put("login", AuthUtils.getUserLoginFromId(userId));				
+		friendList.add(user);
+		
 		List<JSONObject> friendsComments = new ArrayList<JSONObject>();					// prepare list of comments
 		
 		for (JSONObject f : friendList){
@@ -137,6 +143,36 @@ public class CommentsUtils {
 		
 		return friendsComments;
 	}
+	
+	
+	/**
+	 * 
+	 * @param query
+	 * @param forFriends
+	 * @param sort
+	 * @return
+	 * @throws JSONException
+	 */
+	
+	public static List<JSONObject> search(int userId, String query, boolean forFriends) throws JSONException{
+		
+		MongoDatabase db = DataBaseUtils.getMongoConnection();
+		MongoCollection<Document> collection = db.getCollection(COMMENTS);
+		
+		FindIterable<Document> comments;
+		List<JSONObject> resultComments = new ArrayList<JSONObject>();											
+						
+	
+		Document sortMask = new Document("comment.date", -1);
+		comments = collection.find().sort(sortMask);		
+		
+		for (Document doc : comments){
+			resultComments.add(new JSONObject(doc.toJson()));
+		}
+		
+		return resultComments;
+		
+	}	
 	
 	/**
 	 * Prints a list of comments in a JSON format. 

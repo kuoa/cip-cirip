@@ -133,5 +133,33 @@ public class ServicesComments {
 		}
 		
 		return accept;					
-	}		
+	}
+	
+	public static JSONObject search (String userLogin, String query, boolean forFriends) {
+				
+		final int INCORECT_LOGIN = 1;
+		
+		JSONObject accept = null;
+
+		try {			
+			int forUserId = AuthUtils.getUserIdFromLogin(userLogin);
+			
+			System.out.println(userLogin + forUserId);
+			if(!userLogin.isEmpty() && forUserId < 0){																								
+				return Services.serviceRefused("Incorect user login", INCORECT_LOGIN);				
+			}						
+			
+			accept = Services.serviceAccepted();
+			accept.put("comments", CommentsUtils.search(forUserId, query, forFriends));
+
+		} catch (SQLException e) {
+			return Services.serviceRefused("SQL Error\n" + e.getMessage(), Services.SQL_ERROR);
+
+		} catch (Exception e) {
+			return Services.serviceRefused("Java Error\n" + e.getMessage(), Services.JAVA_ERROR);
+		}
+		
+		return accept;					
+	}
+	
 }

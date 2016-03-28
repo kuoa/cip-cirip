@@ -1,6 +1,9 @@
 package services.test.comments;
 
+import org.json.JSONObject;
+
 import database.DataBaseUtils;
+import services.tools.ServicesComments;
 
 public class CommentsTest {
 
@@ -9,10 +12,10 @@ public class CommentsTest {
 		//DataBaseUtils.getMongoConnection().getCollection("comments").drop();
 		 
 		//CommentsUtils.addComment(4, "Hero", "I am hero's comment");
-		// CommentsUtils.addComment(5, "Zeus", "I am Zeus's comment");
+		//CommentsUtils.addComment(5, "Zeus", "I am Zeus's comment");
 		//CommentsUtils.addComment(4, "Hero", "I am hero's second comment");
-		// CommentsUtils.addComment(24, "Zeus1", "By Zeus's Hammer23");
-		// CommentsUtils.addComment(24, "Zeus2", "By Zeus's Hammer24");
+		//CommentsUtils.addComment(24, "Zeus1", "By Zeus's Hammer23");
+		//CommentsUtils.addComment(6, "TestUser", "MyOwnComment");
 
 		// DataBaseUtils.printMongoCollection("comments");
 
@@ -41,24 +44,26 @@ public class CommentsTest {
 		 */
 
 		
-		// CommentsUtils.addComment(5, "Zeus", "New COmment");
+		//CommentsUtils.addComment(7, "I_robot", "I am a robot with no friends.");
 
 		
 
 		//String c1 = "Hey check out this #image https://s-media-cache-ak0.pinimg.com/736x/82/2f/c2/822fc271f3457af71e88d80b51346769.jpg cool right?";
-		//String c2 = "Hey check this #video https://www.youtube.com/watch?v=s1JsBhRCRH0 coll right?";
+		//String c2 = "Hey check this #video https://www.youtube.com/embed/U5zZ1l4scgM coll right?";
 		//String c3 = "Hey this is pretty cool right? #yolo #swag #SWA0";
 		
 		//CommentsUtils.addComment(5, "Zeus", c1);
 		//CommentsUtils.addComment(5, "Zeus", c2);
 		//CommentsUtils.addComment(5, "Zeus", c3);
-
+		 
+		 //ServicesUser.login("TestUser", "T3stUser@");
 		//JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		
-		 //JSONObject jo = ServicesUser.login("TestUser", "T3stUser@");
-		// ServicesFriends.get("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
-		//System.out.println(jo);
-
+		 //JSONObject jo = ServicesComments.search("", "", false);
+		 
+		JSONObject jo = ServicesComments.getForFriends("5ebf158490e647e594405682bbabc842", "TestUser");
+		System.out.println(jo);
+		 		 
 
 		// System.out.println(RegexUtils.parseImageUrl(c1));
 		// System.out.println(RegexUtils.parseVideoUrl(c2));
@@ -66,7 +71,7 @@ public class CommentsTest {
 
 		// jo = ServicesComments.getForUser(key, userLogin)
 
-		// CommentsUtils.printComments(CommentsUtils.getAllComments());
+		 //CommentsUtils.printComments(CommentsUtils.getAllComments());
 		// CommentsUtils.printComments(CommentsUtils.getComments(6, false));
 
 		// CommentsUtils.printComments(CommentsUtils.getCommentsByUserId(24,
