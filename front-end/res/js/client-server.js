@@ -203,9 +203,43 @@ function addComment(event){
 			generateEvents();						
 		}
 	}	
-	serverRequestAsync(url, data, doneFun);	
+	serverRequest(url, data, doneFun);	
 	return false;
 }
+
+function removeComment(event){		
+	
+	event.preventDefault();
+	
+	var url = "/comments/remove";
+	
+	var key = environment.profile.key;				
+	var commentId = $(event.target).parent().attr('id');
+	
+	var data = {
+			key : key,
+			commentId : commentId
+	};
+	
+	var doneFun = function(json){		
+						
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {			
+														
+			initComments();			
+			generateCenterPanel();
+			generateEvents();						
+		}
+	}	
+	serverRequest(url, data, doneFun);	
+	return false;
+}
+
+
 
 function searchComment(event){	
 	
@@ -289,7 +323,7 @@ function getFriendsList(event){
 		userLogin: userLogin
 	};
 	
-	function doneFun(json){		
+	function doneFun(json){
 		
 		if(json.status === "error"){
 			var message = json.message;				

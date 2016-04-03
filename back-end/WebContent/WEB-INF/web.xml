@@ -47,6 +47,11 @@
 	<servlet> 
 		<servlet-name>addComment</servlet-name> 
 		<servlet-class>services.servlets.comments.Add</servlet-class> 
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>removeComment</servlet-name> 
+		<servlet-class>services.servlets.comments.Remove</servlet-class> 
 	</servlet> 
 	
 	<servlet> 
@@ -116,6 +121,11 @@
 	<servlet-mapping> 
 		<servlet-name>addComment</servlet-name> 
 		<url-pattern>/comments/add</url-pattern> 
+	</servlet-mapping> 
+	
+	<servlet-mapping> 
+		<servlet-name>removeComment</servlet-name> 
+		<url-pattern>/comments/remove</url-pattern> 
 	</servlet-mapping> 
 	
 	<servlet-mapping> 

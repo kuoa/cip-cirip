@@ -149,9 +149,10 @@ User.prototype.getPhotosHtml = function(){
 /* Comment Object */
 /*---------------------------------------------*/
 
-function Comment(authorId, authorLogin, date, text, replyToId, likes, hashtags, imageUrl, videoUrl){
+function Comment(authorId, authorLogin, commentId, date, text, replyToId, likes, hashtags, imageUrl, videoUrl){
 	this.authorId = authorId;
 	this.authorLogin = authorLogin;
+	this.commentId = commentId;
 	this.date = date;
 	this.text = text;
 	
@@ -211,19 +212,30 @@ Comment.prototype.getVideoHtml = function (video){
 
 Comment.prototype.getHtml = function(){
 	
+	var user = environment.profile;
 	var hashtml = this.getHashTagHtml(this.hashtags);
 	var datehtml = this.getDateHtml(this.date);
 	var imagehtml = this.getImageHtml(this.imageUrl);
 	var videohtml = this.getVideoHtml(this.videoUrl);
+	var deleteCommentHtml = '';
+		
+	if (user &&  user.id == this.authorId){
+		deleteCommentHtml = ' <a href= "#" id="delete-comment" class="badge delete-url">delete</a>';
+		
+	}
+	else{
+		deleteCommentHtml = '';
+	}
 	
 	var html =		
 		'<div class="panel panel-primary comment">' +
 			'<div class="panel-body">' +
 				this.text + hashtml + imagehtml + videohtml +
 			'</div>' +
-			'<div class="panel-footer">' +
-				'<a href= "#" class="badge user-url">' + this.authorLogin + '</a> ' +
-				 '<span class="time">' + datehtml + '</span>' +
+			'<div class="panel-footer" id="' + this.commentId + '">' +
+				'<a href= "#" class="badge user-url">' + this.authorLogin + '</a> ' +								
+				'<span class="time">' + datehtml + '</span>' +
+					deleteCommentHtml + 
 			'</div>' + 
 		'</div>';
 	
@@ -245,11 +257,12 @@ CommentList.parseComment = function (c){
 	var comment = c.comment;
 	var id = c._id;
 	var date = new Date (comment.date.$date);
-	
+	var commentId = c._id.$oid; //"_id":{"$oid":"56f905672d0fed1422d0c673"}} 
+				
 	// since we load friends first, this friend is not assigned in env here
 	u = new User(author.id, author.login, false);
 			
-	comm = new Comment(author.id, author.login, date, comment.text, 
+	comm = new Comment(author.id, author.login, commentId, date, comment.text, 
 			comment.reply_to_id, comment.likes, comment.hashtags, comment.image, comment.video);
 	
 	return comm;

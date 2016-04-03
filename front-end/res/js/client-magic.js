@@ -136,5 +136,9 @@ function generateEvents(){
 	$('#btn-login').click(login);
 	$('#btn-signin').click(signin);
 	$('#logout').click(logout);
+	
 	$('#form-comment').submit(addComment);
+	
+	$('a#delete-comment').click(removeComment);
+	
 }

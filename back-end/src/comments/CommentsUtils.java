@@ -11,6 +11,7 @@ import java.util.List;
 
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -42,8 +43,13 @@ public class CommentsUtils {
 		collection.insertOne(commentDoc);								
 	}
 	
-	public static void removeComment(String sessionKey, String commentId){
-		// TODO
+	public static void removeComment(String commentId){
+		
+		MongoDatabase db = DataBaseUtils.getMongoConnection(); 
+		MongoCollection<Document> collection = db.getCollection(COMMENTS);
+		
+		Document commentMask= new Document("_id", new ObjectId(commentId));		
+		collection.findOneAndDelete(commentMask);		
 	}
 	
 	/**
@@ -55,7 +61,7 @@ public class CommentsUtils {
 		MongoDatabase db = DataBaseUtils.getMongoConnection();
 		MongoCollection<Document> collection = db.getCollection(COMMENTS);
 		
-		FindIterable<Document> comments = collection.find();	
+		FindIterable<Document> comments = collection.find();							
 		
 		return comments;						
 	}

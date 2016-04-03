@@ -2,6 +2,7 @@ package services.test.comments;
 
 import org.json.JSONObject;
 
+import comments.CommentsUtils;
 import database.DataBaseUtils;
 import services.tools.ServicesComments;
 
@@ -63,7 +64,12 @@ public class CommentsTest {
 		 
 		//JSONObject jo = ServicesComments.getForFriends("5ebf158490e647e594405682bbabc842", "TestUser");
 		System.out.println(jo);
-		 		 
+		
+		
+		CommentsUtils.removeComment("56f905672d0fed1422d0c673");
+		
+		//jo = ServicesComments.search("", "", false);
+		//System.out.println(jo);
 
 		// System.out.println(RegexUtils.parseImageUrl(c1));
 		// System.out.println(RegexUtils.parseVideoUrl(c2));
