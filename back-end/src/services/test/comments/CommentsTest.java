@@ -2,9 +2,8 @@ package services.test.comments;
 
 import org.json.JSONObject;
 
-import comments.CommentsUtils;
 import database.DataBaseUtils;
-import services.tools.ServicesComments;
+import services.tools.ServicesFriends;
 
 public class CommentsTest {
 
@@ -60,13 +59,20 @@ public class CommentsTest {
 		 //ServicesUser.login("TestUser", "T3stUser@");
 		//JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		
-		 JSONObject jo = ServicesComments.search("", "", false);
+		// JSONObject jo = ServicesComments.search("", "", false);
 		 
 		//JSONObject jo = ServicesComments.getForFriends("5ebf158490e647e594405682bbabc842", "TestUser");
-		System.out.println(jo);
+		//System.out.println(jo);
 		
 		
-		CommentsUtils.removeComment("56f905672d0fed1422d0c673");
+		//CommentsUtils.removeComment("56f905672d0fed1422d0c673");
+		
+		
+		 
+		 JSONObject jo = ServicesFriends.remove("e84a49cfeeef4eecb9d0611a811e6233", "Giraffe");
+		 
+		 System.out.println(jo);
+		 
 		
 		//jo = ServicesComments.search("", "", false);
 		//System.out.println(jo);

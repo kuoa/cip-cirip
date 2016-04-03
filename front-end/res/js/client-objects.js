@@ -166,7 +166,22 @@ function Comment(authorId, authorLogin, commentId, date, text, replyToId, likes,
 Comment.prototype.getDateHtml = function (date){
 	
 	var html = '';	
-	html = date.toISOString();
+	var monthNames = [
+	                  "January", "February", "March",
+	                  "April", "May", "June", "July",
+	                  "August", "September", "October",
+	                  "November", "December"
+	                ];
+	
+	var day = date.getDate();
+	var month = date.getMonth();
+	var year = date.getFullYear();
+	
+	var hour = date.getHours();
+	var minutes = date.getMinutes();
+	
+	html = hour + ':' + minutes  + ' | '+ day + ' ' + monthNames[month] + ' ' + year; 
+		
 	
 	return html;
 }
@@ -213,18 +228,30 @@ Comment.prototype.getVideoHtml = function (video){
 Comment.prototype.getHtml = function(){
 	
 	var user = environment.profile;
+	var users = environment.users;
 	var hashtml = this.getHashTagHtml(this.hashtags);
 	var datehtml = this.getDateHtml(this.date);
 	var imagehtml = this.getImageHtml(this.imageUrl);
 	var videohtml = this.getVideoHtml(this.videoUrl);
 	var deleteCommentHtml = '';
+	var friendHtml = '';
+
+	if (user){
 		
-	if (user &&  user.id == this.authorId){
-		deleteCommentHtml = ' <a href= "#" id="delete-comment" class="badge delete-url">delete</a>';
+		if (users[this.authorId].friend){			
+			friendHtml = 'remove friend';
+		}
+		else{			
+			friendHtml = 'add friend';
+		}	
 		
-	}
-	else{
-		deleteCommentHtml = '';
+		if (user.id == this.authorId){
+			deleteCommentHtml = ' <a href= "#" id="delete-comment" class="badge ">delete comment</a>';	
+			friendHtml = '';
+		}
+		else{
+			deleteCommentHtml = '';
+		}		
 	}
 	
 	var html =		
@@ -232,8 +259,9 @@ Comment.prototype.getHtml = function(){
 			'<div class="panel-body">' +
 				this.text + hashtml + imagehtml + videohtml +
 			'</div>' +
-			'<div class="panel-footer" id="' + this.commentId + '">' +
-				'<a href= "#" class="badge user-url">' + this.authorLogin + '</a> ' +								
+			'<div class="panel-footer" id="' + this.commentId + '" user-id="' + this.authorId + '">' +
+				'<a href= "#" class="badge user-url" id="user-login">' + this.authorLogin + '</a> ' +	
+				'<a href= "#" id="friend-status" class="badge ">' + friendHtml + '</a> ' +
 				'<span class="time">' + datehtml + '</span>' +
 					deleteCommentHtml + 
 			'</div>' + 

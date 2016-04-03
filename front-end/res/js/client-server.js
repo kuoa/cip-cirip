@@ -195,8 +195,7 @@ function addComment(event){
 			    setTimeout(function() {		    	
 			      $('#comment-modal').modal('hide');
 			    }, 1000); // milliseconds
-			});
-									
+			});									
 			
 			initComments();			
 			generateCenterPanel();
@@ -228,9 +227,17 @@ function removeComment(event){
 			console.log(message);
 		}
 		
-		else {			
-														
-			initComments();			
+		else {						
+			// remove comment localy			
+			var comments = environment.comments.list;
+			
+			for(i = 0; i < comments.length; i++){				
+				if (comments[i].commentId == commentId){
+					comments.splice(i, 1);
+					break;
+				}
+			}
+			
 			generateCenterPanel();
 			generateEvents();						
 		}
@@ -238,8 +245,6 @@ function removeComment(event){
 	serverRequest(url, data, doneFun);	
 	return false;
 }
-
-
 
 function searchComment(event){	
 	
@@ -310,6 +315,60 @@ function getFriendsComments(event){
 /*---------------------------------------------*/
 /* 				Friends						   */
 /*---------------------------------------------*/
+
+
+function changeFriendStatus(event){
+	
+	var url = "/friends/remove";		
+	
+	var parent = $(event.target).parent();
+	var key = environment.profile.key;
+	
+	var friendLogin = parent.children('#user-login').text();
+	var friendId = parent.attr('user-id');
+			
+	var data = {
+		key : key,
+		friendLogin : friendLogin
+	};		
+	
+	function doneFun(json){
+		
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
+		
+		else {
+			
+			// change friend status
+			var exFriend = environment.users[friendId];
+			exFriend.modifyStatus();
+			
+			// remove from friendList
+			var friendsList = environment.friends.list;
+			var indexFriends = friendsList.indexOf(exFriend);
+			
+			friendsList.splice(indexFriends, 1);
+
+			// remove from commentList
+			var comments = environment.comments.list;	
+			for(var i = comments.length - 1; i >= 0; i--) {		
+			   
+		    	if(comments[i].authorId == friendId) {	      
+			    	
+			    	comments.splice(i, 1);
+			    }
+			}	
+				
+			generateCenterPanel();
+			generateEvents();
+		}
+	}
+	
+	serverRequest(url, data, doneFun);
+	return false;	
+}
 
 function getFriendsList(event){
 	

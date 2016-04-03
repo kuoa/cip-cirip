@@ -141,4 +141,6 @@ function generateEvents(){
 	
 	$('a#delete-comment').click(removeComment);
 	
+	$('a#friend-status').click(changeFriendStatus);
+	
 }
