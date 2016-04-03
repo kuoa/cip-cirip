@@ -75,13 +75,13 @@ function login(event){
 			environment.profile.key = key;			
 			environment.users[id] = undefined;
 						
+			$('#login-modal').modal('hide');
+			
 			initComments();
-			initFriends();
+			initFriends();			
 			
 			generatePage();
-			generateEvents();
-			
-			$('#login-modal').modal('toggle');
+			generateEvents();									
 		}
 	}
 	
@@ -196,13 +196,14 @@ function addComment(event){
 			      $('#comment-modal').modal('hide');
 			    }, 1000); // milliseconds
 			});
+									
 			
 			initComments();			
-			generatePage();
-			generateEvents();
+			generateCenterPanel();
+			generateEvents();						
 		}
 	}	
-	serverRequest(url, data, doneFun);	
+	serverRequestAsync(url, data, doneFun);	
 	return false;
 }
 
@@ -234,11 +235,12 @@ function searchComment(event){
 		}
 		
 		else {
-			new CommentList(json);				
+			new CommentList(json);
 		}
 	}
 	
 	serverRequestAsync(url, data, doneFun);
+	
 	return false;
 }
 
@@ -263,7 +265,7 @@ function getFriendsComments(event){
 		}
 		
 		else {
-			new CommentList(json);				
+			new CommentList(json);	
 		}
 	}
 	
@@ -294,8 +296,11 @@ function getFriendsList(event){
 			console.log(message);
 		}
 		
-		else {
-			new FriendList(json);					
+		else {					
+			new FriendList(json);
+			
+			generateLeftPanel();
+			generateEvents();
 		}
 	}
 	

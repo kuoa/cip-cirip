@@ -4,9 +4,10 @@
 
 function initProfile(){
 
-	initLocalData();
+	initLocalData();	
 	initComments(); 	// latest general comments
 	initFriends();
+	
 	
 	generatePage();
 	generateEvents();	
@@ -54,12 +55,12 @@ function generatePage(){
 }
 
 function generateTopPanel(){
-	
+				
 	var topHtml = getNavbarHtml();	
 	var modalHtml = getAuthModalHtml();
 	
 	$('.navbar').empty().append(topHtml);	
-	$('.my-modal').append(modalHtml);	
+	$('.my-modal').prepend(modalHtml);	
 	
 	var user = environment.profile;
 	
@@ -106,7 +107,7 @@ function generateCenterPanel(){
 	}
 	else{		
 		var commentsHtml = comments.getHtml(5);		
-		var headerHtml = getHeaderHtml();	
+		var headerHtml = getHeaderHtml();					
 		
 		$('#center-panel').empty().append(headerHtml);
 		$("#center-panel").append(commentsHtml);

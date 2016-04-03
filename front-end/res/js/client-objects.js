@@ -387,6 +387,7 @@ function getHeaderHtml(){
 }
 
 function getAuthModalHtml(){
+		
 	var user = environment.profile;
 	var html = '';
 	
