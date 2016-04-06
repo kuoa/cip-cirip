@@ -319,13 +319,23 @@ function searchComment(event, params){
 
 function changeFriendStatus(event){
 	
-	var url = "/friends/remove";		
+	var url = '';
+	var urlRemove = "/friends/remove";
+	var urlAdd = "/friends/add";
 	
 	var parent = $(event.target).parent();
 	var key = environment.profile.key;
 	
 	var friendLogin = parent.children('#user-login').text();
 	var friendId = parent.attr('user-id');
+	var status = $(event.target).text();
+	
+	if(status === '-'){
+		url = urlRemove;
+	}else{
+		url = urlAdd;
+	}
+	
 			
 	var data = {
 		key : key,
@@ -341,32 +351,45 @@ function changeFriendStatus(event){
 		
 		else {
 			
-			// change friend status
-			var exFriend = environment.users[friendId];
-			exFriend.modifyStatus();
-			
-			// remove from friendList
-			var friendsList = environment.friends.list;
-			var indexFriends = friendsList.indexOf(exFriend);
-			
-			friendsList.splice(indexFriends, 1);
-
-			// remove from commentList
-			var comments = environment.comments.list;	
-			for(var i = comments.length - 1; i >= 0; i--) {		
-			   
-		    	if(comments[i].authorId == friendId) {	      
-			    	
-			    	comments.splice(i, 1);
-			    }
-			}	
+			if(status === '-'){				
 				
+				// change friend status
+				var exFriend = environment.users[friendId];
+				exFriend.modifyStatus();
+				
+				// remove from friendList
+				var friendsList = environment.friends.list;
+				var indexFriends = friendsList.indexOf(exFriend);
+				
+				friendsList.splice(indexFriends, 1);
+
+				// remove from commentList
+				var comments = environment.comments.list;	
+				for(var i = comments.length - 1; i >= 0; i--) {		
+				   
+			    	if(comments[i].authorId == friendId) {	      
+				    	
+				    	comments.splice(i, 1);
+				    }
+				}	
+				
+			}else{
+				// change user status
+				var newFriend = environment.users[friendId];
+				newFriend.modifyStatus();
+				
+				// add to friendList
+				var friendList = environment.friends.list;
+				friendList.push(newFriend);				
+			}
+			
+							
 			generateCenterPanel();
 			generateRightPanel();
 			generateEvents();
 		}
 	}
-	
+		
 	serverRequest(url, data, doneFun);
 	return false;	
 }

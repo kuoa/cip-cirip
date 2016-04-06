@@ -140,13 +140,13 @@ function generateCenterPanel(){
 		var commentHtml = user.getCommentHtml();		
 		$('#center-panel').empty().append(commentHtml).hide();
 		
-		var commentsHtml = comments.getHtml(5);
+		var commentsHtml = comments.getHtml(7);
 		$("#center-panel").append(commentsHtml).hide();
 		
 		$('#center-panel').show('slow');
 	}
 	else{		
-		var commentsHtml = comments.getHtml(5);		
+		var commentsHtml = comments.getHtml(7);		
 		var headerHtml = getHeaderHtml();					
 		
 		$('#center-panel').empty().append(headerHtml).hide();
@@ -181,17 +181,7 @@ function generateEvents(){
 	$('#logout').click(logout);
 	
 	$('#form-comment').submit(addComment);
-	
-	/*
-	$('#form-search').keypress(function(e) {
-	    if(e.which == 13) {
-	        console.log(this);
-	        searchComment(this, undefined);
-	        return false;
-	    }	
-	});
-	*/
-	
+
 	$('#form-search').submit(function(event){
 		searchComment(event, undefined);
 		return false;

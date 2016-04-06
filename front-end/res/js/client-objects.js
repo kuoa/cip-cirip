@@ -239,10 +239,10 @@ Comment.prototype.getHtml = function(){
 	if (user){
 		
 		if (users[this.authorId].friend){			
-			friendHtml = 'remove friend';
+			friendHtml = '-';
 		}
 		else{			
-			friendHtml = 'add friend';
+			friendHtml = '+';
 		}	
 		
 		if (user.id == this.authorId){
