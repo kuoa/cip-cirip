@@ -433,6 +433,7 @@ function changeFriendStatus(event){
 			}
 			
 							
+			generateLeftPanel();
 			generateCenterPanel();
 			generateRightPanel();
 			generateEvents();
