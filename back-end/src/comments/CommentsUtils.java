@@ -17,6 +17,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+
 import auth.AuthUtils;
 import database.DataBaseUtils;
 import friends.FriendsUtils;
@@ -160,6 +161,7 @@ public class CommentsUtils {
 	 * @throws JSONException
 	 */
 	
+	/*
 	public static List<JSONObject> search(int userId, String query, boolean forFriends) throws JSONException{
 		
 		MongoDatabase db = DataBaseUtils.getMongoConnection();
@@ -176,9 +178,76 @@ public class CommentsUtils {
 			resultComments.add(new JSONObject(doc.toJson()));
 		}
 		
-		return resultComments;
-		
+		return resultComments;		
 	}	
+	
+	*/
+	
+	public static List<JSONObject> search(int userId, String query, boolean forFriends, boolean myself) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, JSONException{
+		
+		MongoDatabase db = DataBaseUtils.getMongoConnection();
+		MongoCollection<Document> collection = db.getCollection(COMMENTS);
+		
+		
+		List<JSONObject> commentsResult = new ArrayList<JSONObject>();						// prepare list of comments	
+		
+		if(forFriends){		
+			// friendsOnly
+			List <JSONObject> friendList = FriendsUtils.getFriendsForUserId(userId);			// get list of friends						
+			
+			if (myself){
+				JSONObject user = new JSONObject().put("id", userId).put("login", AuthUtils.getUserLoginFromId(userId));
+				friendList.add(user);
+			}
+						
+			
+				for (JSONObject f : friendList){
+					
+					int friendId = f.getInt("id");
+					Document findMask = new Document("author.id", friendId);
+					
+					FindIterable<Document> comments = collection.find(findMask);									
+					
+					for(Document doc : comments){
+						JSONObject comment = new JSONObject(doc.toJson());
+						
+						if(!query.isEmpty()){
+							String commentText = comment.getJSONObject("comment").getString("text");
+							
+							if(commentText.contains(query)){
+								commentsResult.add(comment);
+							}
+						}
+						else{
+							commentsResult.add(comment);
+						}
+					}
+				}					
+		}
+		
+		else{
+				FindIterable<Document> comments = collection.find();
+				
+				for(Document doc : comments){
+					JSONObject comment = new JSONObject(doc.toJson());
+					
+					if(!query.isEmpty()){
+						String commentText = comment.getJSONObject("comment").getString("text");
+						
+						if(commentText.contains(query)){
+							commentsResult.add(comment);
+						}
+					}
+					else{
+						commentsResult.add(comment);
+					}
+				}			
+		}
+		
+		Collections.sort(commentsResult, new CommentCompare());		
+		return commentsResult; 
+	}
+	
 	
 	/**
 	 * Prints a list of comments in a JSON format. 

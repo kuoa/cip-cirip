@@ -384,15 +384,24 @@ FriendList.prototype.getCountHtml = function (){
 
 function getNavbarHtml(){
 	
+	var friendsOnly = '';
+	
+	if(environment.profile){
+		friendsOnly = '<label>' +
+						'<input type="checkbox" id="for-friends" value="true" checked> friends only' +
+					  '</label>';
+	}
+	
 	var html = ''; 	
 	
 	html = 			
 			'<div class="container">' +
 					'<div class="pull-right">' +
-						'<form class="navbar-form" role="search">' +
+						'<form class="navbar-form" role="search" id="form-search">' +
 							'<div class="input-group">' +
 								'<input type="text" class="form-control-input" placeholder="Search"' +
-									'name="search-term" id="search-term">' +
+									'name="search-term" id="search-term"> ' +
+									friendsOnly +
 							'</div>' +
 						'</form>' +
 					'</div>' +

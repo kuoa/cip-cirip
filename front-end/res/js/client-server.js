@@ -250,23 +250,35 @@ function removeComment(event){
 	return false;
 }
 
-function searchComment(event){	
+function searchComment(event, params){			
 	
 	var url = "/comments/search";
-	var userLogin = '';
+	var key = '';	
 	var query = '';
-	var forFriends = '';
+	var forFriends = '';	
 	
-	if (event != undefined){
-		userLogin = $('#login').value();
-		query = $('#query').value();
-		forFriends = $('#friends').value();
-	}		
+	if (params == undefined){
+		event.preventDefault();
+		
+		key = environment.profile.key;		
+		query = $('#search-term').val();
+		forFriends = $('#for-friends').is(":checked");
+		myself = false;			
+		
+	}
+	else{		
+		
+		key = params.key;
+		query = params.query;
+		forFriends = params.forFriends;
+		myself = params.myself;
+	}	
 
 	var data = {
-			userLogin : userLogin,			
+			key : key,			
 			query : query,
-			forFriends : forFriends
+			forFriends : forFriends,
+			myself : myself
 	};
 	
 			
@@ -279,6 +291,18 @@ function searchComment(event){
 		
 		else {
 			new CommentList(json);
+			
+			generateCenterPanel();
+			generateEvents();
+			
+			if(environment.comments.list.length == 0){
+				var msg = '<div id="error-msg" style="display: none; text-align: center">' +
+							'<h4>No comments match your search criterias</h4>' +
+						  '</div>';
+				
+				$('#comment-zone').append(msg);
+				$('#error-msg').show('slow');
+			}
 		}
 	}
 	
@@ -286,35 +310,7 @@ function searchComment(event){
 	
 	return false;
 }
-
 		
-function getFriendsComments(event){
-	
-	var url = "/comments/get-for-friends";
-	
-	var key = environment.profile.key;
-	var userLogin = environment.profile.login;
-	
-	var data = {
-		key : key,
-		userLogin: userLogin
-	};
-	
-	function doneFun(json){		
-		
-		if(json.status === "error"){
-			var message = json.message;				
-			console.log(message);
-		}
-		
-		else {
-			new CommentList(json);	
-		}
-	}
-	
-	serverRequestAsync(url, data, doneFun);
-	return false;		
-}
 
 /*---------------------------------------------*/
 /* 				Friends						   */
@@ -366,6 +362,7 @@ function changeFriendStatus(event){
 			}	
 				
 			generateCenterPanel();
+			generateRightPanel();
 			generateEvents();
 		}
 	}
@@ -396,7 +393,7 @@ function getFriendsList(event){
 		else {					
 			new FriendList(json);
 			
-			generateLeftPanel();
+			generateRightPanel();
 			generateEvents();
 		}
 	}

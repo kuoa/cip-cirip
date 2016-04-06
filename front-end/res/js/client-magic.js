@@ -7,10 +7,9 @@ function initProfile(){
 	initLocalData();
 	initSession();
 	
-	initComments(); 	// latest general comments
+	initComments();
 	initFriends();
-	
-	
+		
 	generatePage();
 	generateEvents();	
 }
@@ -28,14 +27,27 @@ function initLocalData(){
 function initComments(){	
 	
 	var user = environment.profile;
+	var event = undefined;
 	
-	if(user){		
-		getFriendsComments();
+	if(user){	
+		params = {
+				key : user.key,
+				query : "",
+				forFriends : true,
+				myself : true
+		}		
+		
 	}
 	else{		
-		searchComment();		
+		params = {
+				key : "",
+				query : "",
+				forFriends : false,
+				myself : false
+			}					
 	}
 	
+	searchComment(event, params);	
 }
 
 function initFriends(){
@@ -84,7 +96,7 @@ function generateTopPanel(){
 	var topHtml = getNavbarHtml();	
 	var modalHtml = getAuthModalHtml();
 	
-	$('.navbar').empty().append(topHtml);	
+	$('.navbar').empty().append(topHtml);
 	$('.my-modal').prepend(modalHtml);	
 	
 	var user = environment.profile;
@@ -108,8 +120,9 @@ function generateLeftPanel(){
 		var mainHtml = user.getMainSectionHtml();
 		var aboutHtml = user.getAboutHtml();
 		
-		$("#left-panel").empty().append(mainHtml);
-		$("#left-panel").append(aboutHtml);
+		$("#left-panel").empty().append(mainHtml).hide();
+		$("#left-panel").append(aboutHtml).hide();
+		$("#left-panel").show('slow');		
 	}
 	else{
 		$("#left-panel").empty();
@@ -125,17 +138,21 @@ function generateCenterPanel(){
 	
 	if (user){		
 		var commentHtml = user.getCommentHtml();		
-		$('#center-panel').empty().append(commentHtml);
+		$('#center-panel').empty().append(commentHtml).hide();
 		
 		var commentsHtml = comments.getHtml(5);
-		$("#center-panel").append(commentsHtml);		
+		$("#center-panel").append(commentsHtml).hide();
+		
+		$('#center-panel').show('slow');
 	}
 	else{		
 		var commentsHtml = comments.getHtml(5);		
 		var headerHtml = getHeaderHtml();					
 		
-		$('#center-panel').empty().append(headerHtml);
-		$("#center-panel").append(commentsHtml);
+		$('#center-panel').empty().append(headerHtml).hide();
+		$("#center-panel").append(commentsHtml).hide();
+		
+		$('#center-panel').show('slow');
 	}		
 }
 
@@ -147,8 +164,9 @@ function generateRightPanel(){
 		var friendsHtml = user.getFriendsHtml();
 		var photosHtml = user.getPhotosHtml();
 	
-		$('#right-panel').empty().append(friendsHtml);
-		$('#right-panel').append(photosHtml);
+		$('#right-panel').empty().append(friendsHtml).hide();
+		$('#right-panel').append(photosHtml).hide();
+		$('#right-panel').show('slow');
 	}	
 	else{
 		$('#right-panel').empty();
@@ -163,6 +181,21 @@ function generateEvents(){
 	$('#logout').click(logout);
 	
 	$('#form-comment').submit(addComment);
+	
+	/*
+	$('#form-search').keypress(function(e) {
+	    if(e.which == 13) {
+	        console.log(this);
+	        searchComment(this, undefined);
+	        return false;
+	    }	
+	});
+	*/
+	
+	$('#form-search').submit(function(event){
+		searchComment(event, undefined);
+		return false;
+	});	
 	
 	$('a#delete-comment').click(removeComment);
 	

@@ -1,13 +1,15 @@
 package services.test.comments;
 
-import org.json.JSONObject;
+import java.sql.SQLException;
+
+import org.json.JSONException;
 
 import database.DataBaseUtils;
 import services.tools.ServicesFriends;
 
 public class CommentsTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, JSONException {
 
 		//DataBaseUtils.getMongoConnection().getCollection("comments").drop();
 		 
@@ -26,7 +28,7 @@ public class CommentsTest {
 
 		 DataBaseUtils.printMySQLTable("users");
 		 DataBaseUtils.printMySQLTable("friends");
-		 DataBaseUtils.printMySQLTable("session");		 
+		 //DataBaseUtils.printMySQLTable("session");		 
 
 		// DataBaseUtils.printMongoCollection("comments");
 
@@ -60,18 +62,34 @@ public class CommentsTest {
 		//JSONObject jo = ServicesComments.getForFriends("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		
 		// JSONObject jo = ServicesComments.search("", "", false);
-		 
-		//JSONObject jo = ServicesComments.getForFriends("5ebf158490e647e594405682bbabc842", "TestUser");
-		//System.out.println(jo);
 		
+		//ServicesComments.add(key, comment)
+		 
+		/*
+		List<JSONObject> jo = CommentsUtils.search(6, "", true, true);
+		System.out.println(jo);
+		jo = CommentsUtils.search(6, "llo", true, true);
+		System.out.println(jo);
+		jo = CommentsUtils.search(6, "", true, true);
+		System.out.println(jo);
+		
+		List<JSONObject> jall = CommentsUtils.search(6, "", false, false);
+		System.out.println(jall);
+		jall = CommentsUtils.search(6, "llo", false, false);
+		System.out.println(jall);
+				
+		
+		//ServicesFriends.add("f5ae1ce511b44e7b82e55491a59036ad", "Hero");
 		
 		//CommentsUtils.removeComment("56f905672d0fed1422d0c673");
+		 * */
+		 ServicesFriends.add("f5ae1ce511b44e7b82e55491a59036ad", "Hero");
 		
 		
 		 
-		 JSONObject jo = ServicesFriends.remove("e84a49cfeeef4eecb9d0611a811e6233", "Giraffe");
+		// JSONObject jo = ServicesFriends.remove("e84a49cfeeef4eecb9d0611a811e6233", "Giraffe");
 		 
-		 System.out.println(jo);
+		 //System.out.println(jo);
 		 
 		
 		//jo = ServicesComments.search("", "", false);

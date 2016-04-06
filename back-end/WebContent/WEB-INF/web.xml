@@ -128,15 +128,6 @@
 		<url-pattern>/comments/remove</url-pattern> 
 	</servlet-mapping> 
 	
-	<servlet-mapping> 
-		<servlet-name>getUserComments</servlet-name> 
-		<url-pattern>/comments/get-for-user</url-pattern> 
-	</servlet-mapping> 
-	
-	<servlet-mapping> 
-		<servlet-name>getFriendsComments</servlet-name> 
-		<url-pattern>/comments/get-for-friends</url-pattern> 
-	</servlet-mapping> 
 	
 	<servlet-mapping> 
 		<servlet-name>searchComments</servlet-name> 

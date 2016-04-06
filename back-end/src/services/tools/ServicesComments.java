@@ -175,22 +175,21 @@ public class ServicesComments {
 		return accept;					
 	}
 	
-	public static JSONObject search (String userLogin, String query, boolean forFriends) {
+	public static JSONObject search (String key, String query, boolean forFriends, boolean myself) {
 				
 		final int INCORECT_LOGIN = 1;
 		
 		JSONObject accept = null;
 
 		try {			
-			int forUserId = AuthUtils.getUserIdFromLogin(userLogin);
-			
-			System.out.println(userLogin + forUserId);
-			if(!userLogin.isEmpty() && forUserId < 0){																								
+			int forUserId = AuthUtils.getUserIdFromKey(key);
+						
+			if(!key.isEmpty() && forUserId < 0){																								
 				return Services.serviceRefused("Incorect user login", INCORECT_LOGIN);				
 			}						
 			
 			accept = Services.serviceAccepted();
-			accept.put("comments", CommentsUtils.search(forUserId, query, forFriends));
+			accept.put("comments", CommentsUtils.search(forUserId, query, forFriends, myself));
 
 		} catch (SQLException e) {
 			return Services.serviceRefused("SQL Error\n" + e.getMessage(), Services.SQL_ERROR);
