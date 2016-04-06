@@ -140,13 +140,13 @@ function generateCenterPanel(){
 		var commentHtml = user.getCommentHtml();		
 		$('#center-panel').empty().append(commentHtml).hide();
 		
-		var commentsHtml = comments.getHtml(7);
+		var commentsHtml = comments.getHtml(5);
 		$("#center-panel").append(commentsHtml).hide();
 		
 		$('#center-panel').show('slow');
 	}
 	else{		
-		var commentsHtml = comments.getHtml(7);		
+		var commentsHtml = comments.getHtml(5);		
 		var headerHtml = getHeaderHtml();					
 		
 		$('#center-panel').empty().append(headerHtml).hide();

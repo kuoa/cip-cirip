@@ -66,7 +66,7 @@ function login(event){
 			var friend = false;
 			var login = json.username;
 			var bio = "Don't forget to make api for bio."
-			var image = "Don't forget to make api for image."
+			var image = "res/images/user.jpg";
 			var about = "Don't forget to make api for about."
 			var photos = "Don't forget to make api for photos."
 			
@@ -250,6 +250,8 @@ function removeComment(event){
 	return false;
 }
 
+
+
 function searchComment(event, params){			
 	
 	var url = "/comments/search";
@@ -310,7 +312,54 @@ function searchComment(event, params){
 	
 	return false;
 }
+
+function searchHashComments(event){
+	
+	var hash = $(event).text();
+	
+	var params = {
+			key : "",
+			query : hash,
+			forFriends : false,
+			myself : false			
+	}
+	
+	searchComment(undefined, params);
+	
+	return false;	
+}
+
+function getCommentsForUser(event){		
+			
+	var url = "/comments/get-for-user";
+	
+	var key = environment.profile.key;			
+	var userLogin = $(event).text();	
+	
+	var data = {
+		key : key,
+		userLogin : userLogin,
+	};
+	
+	var doneFun = function(json){		
+						
+		if(json.status === "error"){
+			var message = json.message;				
+			console.log(message);
+		}
 		
+		else {			
+			new CommentList(json);
+			
+			generateCenterPanel();
+			generateEvents();			
+		}
+		
+	}	
+	
+	serverRequest(url, data, doneFun);	
+	return false;
+}
 
 /*---------------------------------------------*/
 /* 				Friends						   */

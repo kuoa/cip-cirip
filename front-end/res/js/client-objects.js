@@ -193,8 +193,11 @@ Comment.prototype.getHashTagHtml = function (hashtags){
 	
 	var html = '<br>';	
 	
+	
+	
 	for (var i = 0; i < hashtags.length; i++){
-		html += '<a href="#" class="label-info hash-url">' + hashtags[i] + '</a> ';
+						
+		html += '<a href="#" class="label-info hash-url" onclick="searchHashComments(this)">' + hashtags[i] + '</a> ';
 	}	
 	
 	return html;
@@ -253,6 +256,7 @@ Comment.prototype.getHtml = function(){
 			deleteCommentHtml = '';
 		}		
 	}
+		
 	
 	var html =		
 		'<div class="panel panel-primary comment">' +
@@ -260,7 +264,7 @@ Comment.prototype.getHtml = function(){
 				this.text + hashtml + imagehtml + videohtml +
 			'</div>' +
 			'<div class="panel-footer" id="' + this.commentId + '" user-id="' + this.authorId + '">' +
-				'<a href= "#" class="badge user-url" id="user-login">' + this.authorLogin + '</a> ' +	
+				'<a href= "#" class="badge user-url" id="user-login" onclick="getCommentsForUser(this)">' + this.authorLogin + '</a> ' +	
 				'<a href= "#" id="friend-status" class="badge ">' + friendHtml + '</a> ' +
 				'<span class="time">' + datehtml + '</span>' +
 					deleteCommentHtml + 
@@ -367,7 +371,7 @@ FriendList.prototype.getHtml = function (){
 	var html = '';
 	
 	for (var i = 0; i < this.list.length; i++){
-		html += '<a href="#">' + this.list[i].login + '</a> ';
+		html += '<a href="#" onclick="getCommentsForUser(this)">' + this.list[i].login + '</a> ';
 	}
 	
 	return html;
@@ -387,7 +391,8 @@ function getNavbarHtml(){
 	var friendsOnly = '';
 	
 	if(environment.profile){
-		friendsOnly = '<label>' +
+		friendsOnly = '<span> </span>' + 
+					  '<label>' +
 						'<input type="checkbox" id="for-friends" value="true" checked> friends only' +
 					  '</label>';
 	}
