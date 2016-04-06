@@ -3,8 +3,10 @@
 /*---------------------------------------------*/
 
 function initProfile(){
-
-	initLocalData();	
+			
+	initLocalData();
+	initSession();
+	
 	initComments(); 	// latest general comments
 	initFriends();
 	
@@ -45,6 +47,29 @@ function initFriends(){
 	}		
 }
 
+function initSession(){
+
+	var profile = JSON.parse (localStorage.getItem("profile"));
+	var key = localStorage.getItem("key");	
+			
+	if(profile && key){				
+		u = new User(profile.id, profile.login, profile.friend, profile.bio, profile.image, profile.about, profile.photos);
+		environment.users[profile.id] = undefined;
+		environment.profile = u;
+		environment.profile.key = key;
+	}
+}
+
+function createSession(profile, key){		
+	localStorage.setItem("profile", JSON.stringify(profile));
+	localStorage.setItem("key", key);
+}
+
+function removeSession(){
+	localStorage.removeItem("profile")
+	localStorage.removeItem("key");	
+}
+
 function generatePage(){	
 	
 	generateTopPanel();
@@ -78,7 +103,7 @@ function generateLeftPanel(){
 	
 	var user = environment.profile;
 	
-	if (user){
+	if (user){				
 		
 		var mainHtml = user.getMainSectionHtml();
 		var aboutHtml = user.getAboutHtml();

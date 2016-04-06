@@ -74,6 +74,8 @@ function login(event){
 			environment.profile = user;
 			environment.profile.key = key;			
 			environment.users[id] = undefined;
+			
+			createSession(user, key);
 						
 			$('#login-modal').modal('hide');
 			
@@ -152,7 +154,9 @@ function logout(event){
 		}
 		
 		else {
-									
+			
+			removeSession();
+			
 			initLocalData();
 			initComments();
 			
