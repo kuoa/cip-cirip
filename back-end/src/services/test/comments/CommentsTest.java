@@ -3,8 +3,10 @@ package services.test.comments;
 import java.sql.SQLException;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import database.DataBaseUtils;
+import services.tools.ServicesComments;
 import services.tools.ServicesFriends;
 
 public class CommentsTest {
@@ -21,8 +23,9 @@ public class CommentsTest {
 
 		// DataBaseUtils.printMongoCollection("comments");
 
-		// JSONObject jo =
-		// ServicesFriends.get("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
+		 JSONObject jo = ServicesComments.getForFriends("f5ae1ce511b44e7b82e55491a59036ad", "TestUser");
+		System.out.println(jo);
+		 // ServicesFriends.get("769221ad24cc4ba6b493b0b4a977e6ad", "TestUser");
 		// ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Zeus");
 		// ServicesFriends.add("769221ad24cc4ba6b493b0b4a977e6ad", "Hero");
 
@@ -83,7 +86,7 @@ public class CommentsTest {
 		
 		//CommentsUtils.removeComment("56f905672d0fed1422d0c673");
 		 * */
-		 ServicesFriends.add("f5ae1ce511b44e7b82e55491a59036ad", "Hero");
+		// ServicesFriends.add("f5ae1ce511b44e7b82e55491a59036ad", "Hero");
 		
 		
 		 
