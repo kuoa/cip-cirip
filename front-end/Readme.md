@@ -1,3 +1,48 @@
-# cip-cirip
+# Web Site Functionality
+--------------------
 
-* @TODO : Write a proper ReadMe!
+## Implemented services 
+ 
+- #### User
+    ```
+        - Create
+        - Delete
+        - Login
+        - Logout
+    ```
+    
+- #### Friends
+    ```
+        - Add
+        - Remove
+        - Get User Friends
+    ```
+    
+- #### Comments
+    ```
+        - Add
+        - Remove
+        - Get User Comments
+        - Search Comments
+    ```
+
+## Mentioning
+ 
+- #### Structure
+    ```
+        - One single page
+        - Login | Signin using jQuery modals
+        - Local environment in order to avoid multiple API requests
+    ```
+    
+- #### Features
+    ```
+        - Hashtags
+        - Friends
+        - Automatic integration for pictures and youtube videos
+        - Session is kept on browser refreshing or closing
+        - Search (comments, pictures, videos)
+        - See the list of comments containing a hashtag on click
+        - See the list of comments for a user by clicking on his name (comment | friends)
+        - Friend list | number
+    ```
